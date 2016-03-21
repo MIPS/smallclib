@@ -50,7 +50,7 @@
 # library is built.
 #
 # Fine grained control of multilib configurations is provided with the
-# variables MULTILIB_SELECT and MULTILIB_SKIP.
+# variables MULTILIB_SELECT, MULTILIB_SKIP and MULTILIB_BUILDLIST
 #
 # MULTILIB_SELECT=[ALL|<regex>]
 # ALL: all configurations, except those skipped by MULTILIB_SKIP are
@@ -67,6 +67,10 @@
 # If MULTILIB_SKIP is not specified, behaviour is same as
 # MULTILIB_SKIP=NONE. If MULTILIB_SELECT is not specified, MULTILIB_SKIP
 # is ignored.
+#
+# MULTILIB_BUILDLIST=<filename>
+# <filename>: Only those multilib directories listed in the file will
+#             be built.
 #
 # This module defines the following variables:
 # 
@@ -132,7 +136,9 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+cmake_policy(PUSH)
 cmake_minimum_required(VERSION 2.6)
+cmake_policy(POP)
 
 #.rst:
 # .. command:: multilib_pre_setup
@@ -193,7 +199,7 @@ endfunction()
 #
 macro (multilib_build_setup)
 
-  if ((DEFINED MULTILIB_SELECT) AND NOT (DEFINED MULTILIB_FLAVOUR))
+  if (NOT (DEFINED MULTILIB_FLAVOUR))
 
     if ((NOT (DEFINED _C_MULTILIBS)))
       execute_process(COMMAND ${CMAKE_C_COMPILER} "-print-multi-lib"
@@ -227,6 +233,11 @@ macro (multilib_build_setup)
       set(_SKIP_REGEX "^$")
     endif () # MULTILIB_SKIP  && ${MULTILIB_SKIP} != NONE
 
+    if (MULTILIB_BUILDLIST)
+      # Read the list of multilib directories to build
+      file(STRINGS ${MULTILIB_BUILDLIST} _BUILDLIST)
+    endif () # MULTILIB_BUILDLIST
+
     foreach (mlib_config ${_C_MULTILIBS})
       string(REGEX MATCH "@.*" _FLAVOUR "${mlib_config}")
       string(REGEX MATCH "[^;]*" _DIR "${mlib_config}")
@@ -236,7 +247,13 @@ macro (multilib_build_setup)
 	string(REGEX MATCH "${_SKIP_REGEX}" _SKIP_MATCH "${_FLAVOUR}")
       endif() # _FLAVOUR
 
-      if (_SELECT_MATCH AND NOT _SKIP_MATCH)
+      # Check if the directory is in the build list
+      if (_BUILDLIST)
+	list (FIND _BUILDLIST ${_DIR} _BUILDLIST_INDEX)
+      endif() # _BUILDLIST
+
+      if (_SELECT_MATCH AND NOT _SKIP_MATCH
+	  AND (NOT _BUILDLIST OR NOT _BUILDLIST_INDEX EQUAL "-1"))
 	multilib_recurse_step(${_FLAVOUR} ${_DIR})
       endif () # MATCH && !SKIP
     endforeach () # mlib_config
@@ -245,6 +262,7 @@ macro (multilib_build_setup)
     set(MULTILIB_TOP YES)
 
     # Clean-up intermediates
+    unset(_BUILDLIST)
     unset(_SELECT_REGEX)
     unset(_SKIP_REGEX)
     unset(_C_MULTILIBS)
