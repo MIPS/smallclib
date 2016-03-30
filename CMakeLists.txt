@@ -877,14 +877,14 @@ MULTILIB_BUILD_SETUP()
 
 if (MULTILIB_TOP)
 # Process this block only once per run, irrespective of recursive invocations
-message (WARNING ": Parts of this software are derived/copied from
-Newlib v2.0.0 which released under a collection of BSD-type licenses
-and Musl v0.9.11 release under the MIT license. Any source/binary
-distribution must include license/COPYING.NEWLIB &
-license/COPYING.MUSL.  Releasing source code is not mandatory, but if
-released, any copyright statement/license text in the original source
-file must be preserved!  Files that are written from scratch may carry
-just the Imagination Technologies Copyright statement.")
+message (WARNING ": Parts of this software are derived/copied from "
+"Newlib v2.0.0 which released under a collection of BSD-type licenses "
+"and Musl v0.9.11 release under the MIT license. Any source/binary "
+"distribution must include license/COPYING.NEWLIB & "
+"license/COPYING.MUSL.  Releasing source code is not mandatory, but if "
+"released, any copyright statement/license text in the original source "
+"file must be preserved!  Files that are written from scratch may carry "
+"just the Imagination Technologies Copyright statement.")
 install (FILES license/COPYING.NEWLIB	license/COPYING.MUSL license/COPYING.CLIB
   DESTINATION share/copying)
 
