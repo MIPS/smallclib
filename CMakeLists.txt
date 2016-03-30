@@ -871,6 +871,16 @@ SET(CMAKE_C_FLAGS_RELEASE "-Wall -Werror -Wno-char-subscripts")
 SET(CMAKE_C_FLAGS "-mno-gpopt -Os -fsection-anchors -D_COMPILING_NEWLIB -mabs=2008 ${CMAKE_C_FLAGS}")
 SET(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS} -c")
 
+# Canonicalize the install prefix. This makes the multilib reference directory
+# copying simpler
+get_filename_component(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} REALPATH)
+
+# Assume the base directory of the toolchain is one level above the compiler driver
+# /foo/bar/bin/my-gcc becomes /foo/bar
+get_filename_component(_MULTILIB_REF_BASE ${CMAKE_C_COMPILER} REALPATH)
+get_filename_component(_MULTILIB_REF_BASE ${_MULTILIB_REF_BASE} DIRECTORY)
+get_filename_component(_MULTILIB_REF_BASE ${_MULTILIB_REF_BASE} DIRECTORY)
+
 include(toolchains/MultiLibConfig.cmake)
 
 MULTILIB_BUILD_SETUP()
@@ -893,6 +903,68 @@ else (MULTILIB_TOP)
 STRING(REGEX REPLACE ".*mclib~(small|tiny).*" "\\1" SMALLCLIB_FLAVOUR "${MULTILIB_FLAVOUR}")
 STRING(REGEX MATCH "@mips16" MIPS16_MODE "${MULTILIB_FLAVOUR}")
 STRING(REGEX MATCH "@msoft-float" SOFT_FLOAT_MODE "${MULTILIB_FLAVOUR}")
+
+# Create install rules for copying compatible support files from a newlib
+# multilib into the small or tiny multilib
+STRING(REGEX REPLACE "-mclib=(small|tiny)" "-mclib=newlib" _MULTILIB_REF_CFLAGS_LIST ${MULTILIB_CFLAGS})
+STRING(REGEX REPLACE " " ";" _MULTILIB_REF_CFLAGS_LIST ${_MULTILIB_REF_CFLAGS_LIST})
+
+# Determine the reference multilib direcory
+execute_process(COMMAND ${CMAKE_C_COMPILER} -print-multi-directory ${_MULTILIB_REF_CFLAGS_LIST}
+		RESULT_VARIABLE _MULTILIB_REF_DIR_SUCCESS
+		OUTPUT_VARIABLE _MULTILIB_REF_DIR
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+if (NOT ${_MULTILIB_REF_DIR_SUCCESS} EQUAL 0)
+  message(FATAL_ERROR "Unable to determine the reference multilib for ${MULTILIB_CFLAGS}")
+endif ()
+
+# Find libgcc.a
+execute_process(COMMAND ${CMAKE_C_COMPILER} -print-file-name=libgcc.a ${_MULTILIB_REF_CFLAGS_LIST}
+		RESULT_VARIABLE _MULTILIB_SUCCESS
+		OUTPUT_VARIABLE _MULTILIB_REF_LIBGCC
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+if (NOT ${_MULTILIB_SUCCESS} EQUAL 0
+    OR ${_MULTILIB_REF_LIBGCC} STREQUAL libgcc.a)
+  message(FATAL_ERROR "Unable to find libgcc for ${_MULTILIB_REF_CFLAGS_LIST}")
+endif ()
+
+# Take the canonical path libgcc.a is found i
+get_filename_component(_MULTILIB_REF_LIBGCC ${_MULTILIB_REF_LIBGCC} DIRECTORY)
+get_filename_component(_MULTILIB_REF_LIBGCC ${_MULTILIB_REF_LIBGCC} REALPATH)
+
+# Replace the reference multilib directory with the small/tiny directory
+STRING(REPLACE ${_MULTILIB_REF_DIR} ${MULTILIB_DIR} _MULTILIB_LIBGCC ${_MULTILIB_REF_LIBGCC})
+# Replace the prefix with the install prefix
+STRING(REPLACE ${_MULTILIB_REF_BASE} ${CMAKE_INSTALL_PREFIX} _MULTILIB_LIBGCC ${_MULTILIB_LIBGCC})
+
+# Install all files and directories for the compiler support libraries
+install(DIRECTORY "${_MULTILIB_REF_LIBGCC}/" DESTINATION "${_MULTILIB_LIBGCC}")
+
+# Repeat for crt0.o to find the non-GCC support libraries
+execute_process(COMMAND ${CMAKE_C_COMPILER} -print-file-name=crt0.o ${_MULTILIB_REF_CFLAGS_LIST}
+		RESULT_VARIABLE _MULTILIB_SUCCESS
+		OUTPUT_VARIABLE _MULTILIB_REF_CRT0
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+if (NOT ${_MULTILIB_SUCCESS} EQUAL 0
+    OR ${_MULTILIB_REF_CRT0} STREQUAL crt0.o)
+  message(FATAL_ERROR "Unable to find crt0.o for ${_MULTILIB_REF_CFLAGS_LIST}")
+endif ()
+
+get_filename_component(_MULTILIB_REF_CRT0 ${_MULTILIB_REF_CRT0} DIRECTORY)
+get_filename_component(_MULTILIB_REF_CRT0 ${_MULTILIB_REF_CRT0} REALPATH)
+STRING(REPLACE ${_MULTILIB_REF_DIR} ${MULTILIB_DIR} _MULTILIB_CRT0 ${_MULTILIB_REF_CRT0})
+STRING(REPLACE ${_MULTILIB_REF_BASE} ${CMAKE_INSTALL_PREFIX} _MULTILIB_CRT0 ${_MULTILIB_CRT0})
+
+# Do not copy the files that small or tiny produce nor any c++ support libraries
+install(DIRECTORY "${_MULTILIB_REF_CRT0}/" DESTINATION "${_MULTILIB_CRT0}"
+	PATTERN libm.a EXCLUDE
+	PATTERN libc.a EXCLUDE
+	PATTERN libg.a EXCLUDE
+	PATTERN libstdc++* EXCLUDE
+	PATTERN libsupc++* EXCLUDE)
 
 if (MIPS16_MODE AND NOT SOFT_FLOAT_MODE)
 set_source_files_properties(${sources_math_common} ${sources_mathl_common}
