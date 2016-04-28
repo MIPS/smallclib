@@ -898,6 +898,9 @@ message (WARNING ": Parts of this software are derived/copied from "
 install (FILES license/COPYING.NEWLIB	license/COPYING.MUSL license/COPYING.CLIB
   DESTINATION share/copying)
 
+install (FILES doc/MIPS_Toolchain_Small_C_Library_Reference_Manual_1.3.10.pdf
+	 DESTINATION share/doc)
+
 else (MULTILIB_TOP)
 # Process this block for each multilib invocation
 STRING(REGEX REPLACE ".*mclib~(small|tiny).*" "\\1" SMALLCLIB_FLAVOUR "${MULTILIB_FLAVOUR}")
