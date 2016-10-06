@@ -53,7 +53,7 @@ void *_get_sys_mem (size_t size)
   /* get memory from system */
   new_heap = (unsigned char *) sbrk (new_size);
 
-  if (new_heap == NULL)
+  if (new_heap == NULL || new_heap == (void *)-1)
     return NULL;
 
   block = (unsigned char *) new_heap;
