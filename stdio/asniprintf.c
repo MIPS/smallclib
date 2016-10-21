@@ -78,7 +78,7 @@ char *asniprintf(char *str, size_t *size, const char *fmt, ...)
     va_end(ap);
 
     /* terminate the string */
-    if (rw.m_handle)
+    if (rw.m_handle && rw.m_limit)
       *((char *)(rw.m_handle + rw.m_size)) = '\0';
     return (char *)rw.m_handle;
 }

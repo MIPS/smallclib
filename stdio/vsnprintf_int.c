@@ -76,8 +76,8 @@ int vsnprintf_int (char *str, size_t size, const char *fmt, va_list ap)
   ret = _format_parser_int(&rw, fmt, &ap);
   
   /* terminate the string */
-  if (rw.m_handle)
-   *((char *)rw.m_handle) = '\0';
+  if (rw.m_handle && rw.m_limit)
+   *((char *)(rw.m_handle + rw.m_size)) = '\0';
   return ret;
 }
 

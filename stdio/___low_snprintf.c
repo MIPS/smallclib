@@ -64,7 +64,7 @@ int __low_snprintf (ReadWriteInfo *rw, const void *src, size_t len)
   char *dst;
   const char *src0 = (const char *) src;
 
-  if (len && rw->m_handle)
+  if (len && rw->m_handle && rw->m_limit)
     {
       maxbytes = MIN ((rw->m_limit - rw->m_size)-1, len);
       ret = maxbytes;
