@@ -70,7 +70,7 @@ int vsiprintf (char *str, const char *fmt, va_list ap)
   ret = _format_parser(&rw, fmt, &ap, 1);
   
   /* terminate the string */
-  if (!rw.m_handle)
+  if (rw.m_handle)
     *((char *)rw.m_handle) = '\0';
   return ret;
 }

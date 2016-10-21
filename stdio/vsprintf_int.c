@@ -73,7 +73,7 @@ int vsprintf_int (char *str, const char *fmt, va_list ap)
   ret = _format_parser_int(&rw, fmt, &ap);
   
   /* terminate the string */
-  if (!rw.m_handle)
+  if (rw.m_handle)
     *((char *)rw.m_handle) = '\0';
   return ret;
 }
