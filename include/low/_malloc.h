@@ -40,6 +40,8 @@
 #ifndef __LOW_MALLOC_H_
 #define __LOW_MALLOC_H_
 
+#ifdef __mips_clib_tiny
+
 #define ALLOC_SIZE  (1024*4)
 #define ADMIN_SIZE  (16)
 #define ALIGN_SIZE  (16)
@@ -54,12 +56,53 @@
 #define get_info(BLOCK)       (*((unsigned int *)(BLOCK)))
 #define next_block(BLOCK)     ((BLOCK) + get_block_size (get_info ((BLOCK))) + ADMIN_SIZE)
 
-/* malloc helper functions */
-void * _get_sys_mem (size_t size);
-unsigned int _coalesce (unsigned char * block);
+extern void *__smlib_heap_start;
+
+#else /* !__mips_clib_tiny */
+
+#define CHUNK_FREE      0
+#define CHUNK_USED      1
+
+#define IS_USED(BLOCK)  ((BLOCK)->size & CHUNK_USED)
+#define IS_FREE(BLOCK)  (!IS_USED ((BLOCK)))
+
+/*
+ * Last two bits of the size are used as flags. CHUNK_ALIGNED is used to
+ * indicate that the user_space is aligned to MALLOC_ALIGN by adding 8-bytes
+ * of padding.
+*/
+typedef struct malloc_chunk
+{
+  long size;                    /* Size of the chunk including padding, bookkeeping */
+  struct malloc_chunk *next;    /* Pointer to next allocated chunk */
+  void *user_space;             /* Start of user space (not counted in ADMIN_SIZE) */
+} chunk;
+
+#define MALLOC_ALIGN            (16U)
+#define CHUNK_ALIGN             (8U)
+#define ADMIN_SIZE              (8U)
+#define ALIGN_TO(SIZE, ALIGN)   (((SIZE) + (ALIGN) - 1) & ~((ALIGN) - 1))
+
+/* 
+ * If we split a chunk into two, then each chunk must contian space
+ * to accommodate padding bytes reqruied for MALLOC_ALIGN. As we
+ * have aligned the chunk to 8-byte boundary we need max 8 bytes
+ * to align the user space to MALLOC_ALIGN. The newly created chunk
+ * should have atleast 1 byte for user space. Max 7-bytes to align
+ * the chunk it self.
+*/
+#define MALLOC_PADDING          (8U)
+#define MALLOC_MINCHUNK         (24U)   /* 8 + 7 + 8 + 1 */
+
+/* List of free chunks */
+extern chunk *__malloc_free_list;
+
+/* List of allocated chunks for mstats */
+extern chunk *__malloc_chunk_list;
+
 void * sbrk (size_t incr);
 
-extern void *__smlib_heap_start;
+#endif /* __mips_clib_tiny */
 
 #endif /* __LOW_MALLOC_H_ */
 

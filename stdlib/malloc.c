@@ -40,88 +40,138 @@
 #include <stdlib.h>
 #include <low/_malloc.h>
 
-void *__smlib_heap_start = NULL;
+/* List of allocated chunks for mstats */
+chunk *__malloc_chunk_list = NULL;
+
+/* Previous allocated chunk */
+static chunk *prev_chunk = NULL;
+
+static void *sbrk_aligned (size_t s)
+{
+  char *p, *align_p;
+
+  p = (char *) sbrk (s);
+
+  if (p == (void *)-1)
+      return p;
+
+  align_p = (char *) ALIGN_TO ((unsigned long) p, CHUNK_ALIGN);
+
+  /* p is not aligned, ask for a few more bytes */
+  if (align_p != p)
+    {
+      p = (char *) sbrk (align_p - p);
+      if (p == (void *)-1)
+        return p;
+    }
+
+  return align_p;
+}
 
 void *malloc (size_t size)
 {
-  size_t bsize = 0;
-  unsigned int info = 0;
-  unsigned char *block = NULL, *next_addr = NULL, *ret_addr = NULL;
+  int offset;
+  char *ptr, *align_ptr;
+  chunk *block, *nblock;
+  size_t alloc_size, rem_size;
 
-  /* align the size */
-  if (size & (ALIGN_SIZE - 1))
-    size += ALIGN_SIZE - (size & (ALIGN_SIZE - 1));
+  alloc_size = ALIGN_TO(size, CHUNK_ALIGN);
+  alloc_size += MALLOC_PADDING;
+  alloc_size += ADMIN_SIZE;
 
-  /* get memory from system */
-  if (__smlib_heap_start == NULL)
-    __smlib_heap_start = _get_sys_mem (size);
-      
-  if (__smlib_heap_start == NULL)
-    return NULL;
-
-  block = (unsigned char *) __smlib_heap_start;
-
-  /* search for empty block */
-  for (;;)
+  block = __malloc_free_list;
+  while (block)
     {
-      info = get_info (block);
-          
-      if (is_free (info))
+      if (IS_FREE(block))
         {
-          bsize = get_block_size (info);
-            
-          if (bsize < size)
-            bsize = _coalesce (block);
-
-          if (bsize >= size)
+          rem_size = block->size - alloc_size;
+          if (rem_size >= 0)
             {
-              ret_addr = block + ADMIN_SIZE;
-              set_info (block) = size;  /* size of current block excuding bookkeeping */
-
-              /* spilt this block only when blocksize is bigger than the request */
-              if (bsize > size)
+              /* Split this chunk */
+              if (rem_size >= MALLOC_MINCHUNK)
                 {
-                  next_addr = ret_addr + size;  /* next block is at this address */
-                  set_info (next_addr) = (bsize - (size + ADMIN_SIZE)) 
-                    | BLOCK_FREE;  /* size remaining excuding bookkeeping */
+                  nblock = (chunk *)((char *) block + alloc_size);
+                  nblock->size = rem_size;
+                  nblock->next = block->next;
+                  if (nblock->next == NULL)
+                    prev_chunk = nblock;
+                  block->size = alloc_size;
+                  block->next = nblock;
                 }
-              return (void*) ret_addr;
+
+              /* We have found a free chunk */
+              break;
             }
-          else
-            goto GetNextBlock;
         }
-      else if (is_last (info))
-        {
-          unsigned char *new_chunk;
+      block = block->next;
+    }
 
-          /* check if we have another chunk linked to this block */
-          new_chunk = (unsigned char *) get_block_size (info);
+  /*
+   * If the return address (user_space) is naturally aligned to MALLOC_ALIGN then 
+   * the chunk looks like:
+   *
+   *                 -----------------------
+   * size (4-bytes)  | size of the chunk   |
+   *                 -----------------------
+   * next (4-bytes)  | ptr to next chunk   |
+   *                 -----------------------
+   * user_space      | user space...       |
+   *                 |                     |
+   *                 |                     |
+   *                 -----------------------
+   *
+   * Note that user_space is not counted in ADMIN_SIZE.
+   *
+   * When return address is not aligned to MALLOC_ALIGN then extra bytes are
+   * allocated and the size of padding reqruied for alignment is kept at -ADMIN_SIZE
+   * from the start of user_space pointer.
+   *
+   *                 -----------------------
+   * size (4-bytes)  | size of the chunk   |
+   *                 -----------------------
+   * next (4-bytes)  | ptr to next chunk   |
+   *                 -----------------------
+   * psize           | -8 (4-bytes)        |
+   *                 -----------------------
+   *                 | padding (4-bytes)   |
+   *                 -----------------------
+   * user_space      | user space...       |
+   *                 |                     |
+   *                 -----------------------
+   *
+   * In this case, start of a chunk is calculated by user_space + psize.
+   * As we have aligned the chunk at 8-byte boundary, we will need 0 or 8-bytes
+   * to align user_space to 16-byte boundary. Thus padding is always of 8-bytes
+   * when present.
+  */
 
-          if (new_chunk == NULL)
-            {
-              /* ask for more space */
-              new_chunk = _get_sys_mem (size);
-                  
-              if (new_chunk == NULL)
-                return NULL;
-                  
-              /* 
-               * Keep the address of the next chunk in the
-               * last block. This forms a chain of available
-               * blocks.
-              */
-              set_info (block) = (unsigned int) new_chunk | BLOCK_LAST;
-            }
+   /* Create a new chunk */
+   if (block == NULL)
+     {
+       block = (chunk *) sbrk_aligned (alloc_size);
+       if (block == (void *)-1)
+         return NULL;
 
-          block = new_chunk;  /* we have a chunk linked to last block */
-        }
-      else
-        {
-GetNextBlock:
-          block = next_block (block);
-        } 
-    }/* for available heap */
-     
-  return NULL;
-}/* malloc */
+       block->next = NULL;
 
+       /* Create chain of allocated chunks */
+       if (prev_chunk)
+         prev_chunk->next = block;
+       else
+         __malloc_chunk_list = block;
+       prev_chunk = block;
+     }
+
+  /* Calculate return address */
+  ptr = (char *) block + ADMIN_SIZE;
+
+  /* Align return address to MALLOC_ALIGN */
+  align_ptr = (char *) ALIGN_TO((unsigned long) ptr, MALLOC_ALIGN);
+  offset = align_ptr - ptr;
+  if (offset)
+    *(int *)((char *) block + ADMIN_SIZE) = -offset;
+
+  block->size = alloc_size | CHUNK_USED;
+
+  return align_ptr;
+}

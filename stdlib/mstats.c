@@ -41,6 +41,7 @@
 #include <stdlib.h>
 #include <low/_malloc.h>
 
+#ifdef __mips_clib_tiny
 void mstats (char *s)
 {
   int ch_idx = 1, bk_idx = 1;
@@ -90,4 +91,22 @@ GetNextBlock:
 
   return;
 }/* mstats */
+#else /* !__mips_clib_tiny */
 
+void mstats (char *s)
+{
+  int ch_idx = 1;
+  chunk *block = NULL;
+  
+  fprintf (stderr, "Memory allocation statistics %s\n", s);
+
+  for (block = __malloc_chunk_list; block != NULL; block = block->next)
+    {
+      fprintf (stderr, "\tBlock %d @%p size %d %s\n", ch_idx++, block,
+        (block->size & ~CHUNK_USED), IS_FREE (block) ? "free" : "allocated");
+    }/* for available heap */
+
+  return;
+}/* mstats */
+
+#endif /* __mips_clib_tiny */

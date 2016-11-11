@@ -212,8 +212,8 @@ set (sources_common
 #	stdlib/__locale_mbtowc.c
 #	stdlib/__locale_wctomb.c
 	stdlib/lrand48.c
-	stdlib/malloc_util.c
-	stdlib/malloc_util_coalesce.c
+#	stdlib/malloc_util.c
+#	stdlib/malloc_util_coalesce.c
 	stdlib/mblen.c
 	stdlib/mbrlen.c
 	stdlib/mbrtowc.c

@@ -54,6 +54,7 @@
 #include <stdlib.h>
 #include "low/_malloc.h"
 
+#ifdef __mips_clib_tiny
 void *realloc (void *ptr, size_t size)
 {
   void *new_ptr = NULL;
@@ -71,4 +72,32 @@ void *realloc (void *ptr, size_t size)
 
   return new_ptr;
 }/* realloc */
+#else /* !__mips_clib_tiny */
 
+void *realloc (void *ptr, size_t size)
+{
+  void *new_ptr = NULL;
+  size_t old_size = 0;
+  chunk *block;
+
+  new_ptr = malloc (size);
+
+  if (new_ptr == NULL || ptr == NULL)
+    return new_ptr;
+
+  /* Get chunk from ptr */
+  block = (chunk *) (ptr - ADMIN_SIZE);
+
+  /* Skip the padding area */
+  if (block->size < 0)
+    block = (chunk *)(((char *) block) + block->size);
+
+  old_size = (block->size & ~CHUNK_USED) - ((char*) ptr - (char*) block);
+  memcpy (new_ptr, ptr, (size >= old_size) ? old_size : size);
+
+  free (ptr);
+
+  return new_ptr;
+}/* realloc */
+
+#endif /* __mips_clib_tiny */

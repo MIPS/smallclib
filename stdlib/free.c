@@ -40,6 +40,35 @@
 #include <stdlib.h>
 #include <low/_malloc.h>
 
+#ifdef __mips_clib_tiny
+
+static unsigned int _coalesce (unsigned char * block)
+{
+    unsigned char *nblock = NULL;
+    unsigned int info = 0, ninfo = 0, nsize = 0, tsize = 0;
+
+    info = get_info (block);
+    tsize = get_block_size (info);
+    
+    if (is_last (info) || ! is_free (info))
+      return tsize;
+
+    for (;;)
+      {
+        nblock = next_block (block);
+        ninfo = get_info (nblock);
+
+        if (is_last (ninfo) || ! is_free (ninfo))
+          return tsize;
+            
+        nsize = get_block_size (ninfo);
+        tsize = tsize + nsize + ADMIN_SIZE;	/* use space required for bookkeeping as well */
+        set_info (block) = tsize | BLOCK_FREE;
+      }/* coalesce until we hit non-free block */
+
+    return tsize;
+}/* _coalesce */
+
 void free (void *ptr)
 {
   unsigned char *block = NULL;
@@ -59,3 +88,48 @@ void free (void *ptr)
   return;
 }/* free */
 
+#else /* ! __mips_clib_tiny */
+
+/* List of free chunks */
+chunk *__malloc_free_list = NULL;
+
+void free (void *ptr)
+{
+  chunk *block, *nblock;
+
+  if (ptr == NULL)
+    return;
+
+  /* Get chunk from ptr */
+  block = (chunk *) (ptr - ADMIN_SIZE);
+
+  /* Skip the padding area */
+  if (block->size < 0)
+    block = (chunk *)(((char *) block) + block->size);
+
+  /* Mark it as free */
+  block->size &= ~CHUNK_USED;
+
+  /* Create list of free chunks */
+  if (__malloc_free_list == NULL || block < __malloc_free_list)
+    __malloc_free_list = block;
+
+  /* Coalesce adjacent free chunks */
+  block = __malloc_free_list;
+  for (;;)
+    {
+      nblock = block->next;
+      if (nblock && IS_FREE (nblock)
+          && (char*) nblock == ((char*) block) + block->size)
+        {
+          block->size += nblock->size;
+          block->next = nblock->next;
+          continue;
+        }
+      break;
+    }
+
+  return;
+}/* free */
+
+#endif /* __mips_clib_tiny */
