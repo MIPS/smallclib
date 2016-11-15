@@ -31,17 +31,16 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
+*                 file : $RCSfile: explicit_bzero.c,v $ 
 *               author : $Author Imagination Technologies Ltd
 *    date last revised : $
 *      current version : $
 ******************************************************************************/
 
 #include <string.h>
+
 void
-bzero(void *b, size_t length)
+explicit_bzero(void *p, size_t n)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  bzero(p, n);
 }

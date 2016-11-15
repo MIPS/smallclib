@@ -31,17 +31,61 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
-*               author : $Author Imagination Technologies Ltd
-*    date last revised : $
-*      current version : $
+*              file : $RCSfile: malign.c,v $
+*            author : $Author Imagination Technologies Ltd
+* date last revised : $
+*   current version : $
 ******************************************************************************/
 
-#include <string.h>
-void
-bzero(void *b, size_t length)
+#include <stdlib.h>
+#include <low/_malloc.h>
+
+#ifndef MAX
+#define MAX(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
+#ifdef __mips_clib_tiny
+
+void *memalign(size_t align, size_t size)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  return NULL;
 }
+
+#else /* ! __mips_clib_tiny */
+
+void *memalign(size_t align, size_t size)
+{
+  chunk * chunk_p;
+  size_t ma_size, size_with_padding, offset;
+  char *allocated, *aligned_p;
+
+  /* Return NULL if align isn't power of 2 */
+  if ((align & (align - 1)) != 0)
+    return NULL;
+
+  align = MAX(align, MALLOC_ALIGN);
+  ma_size = ALIGN_TO(size, CHUNK_ALIGN);
+  size_with_padding = ma_size + align - MALLOC_ALIGN;
+
+  allocated = malloc(size_with_padding);
+  if (allocated == NULL)
+    return NULL;
+
+  /* Get chunk from ptr */
+  chunk_p = (chunk *) (allocated - ADMIN_SIZE);
+
+  /* Skip the padding area */
+  if (chunk_p->size < 0)
+    chunk_p = (chunk *)(((char *) chunk_p) + chunk_p->size);
+
+  aligned_p = (char *)ALIGN_TO(
+                (unsigned long)((char *)chunk_p + ADMIN_SIZE),
+                (unsigned long)align);
+
+  offset = aligned_p - ((char *)chunk_p + ADMIN_SIZE);
+  if (offset)
+    *(int *)((char *) chunk_p + ADMIN_SIZE) = -offset;
+
+  return aligned_p;
+}
+#endif
