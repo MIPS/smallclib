@@ -31,17 +31,29 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
-*               author : $Author Imagination Technologies Ltd
-*    date last revised : $
-*      current version : $
+*              file : $RCSfile: itoa.c,v $
+*            author : $Author Imagination Technologies Ltd
+* date last revised : $
+*   current version : $
 ******************************************************************************/
 
-#include <string.h>
-void
-bzero(void *b, size_t length)
+#include <stdlib.h>
+
+char *itoa (int value, char *str, int base)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  unsigned uvalue;
+  int i = 0;
+  
+  /* Negative numbers are only supported for decimal.
+   * Cast to unsigned to avoid overflow for maximum negative value.  */ 
+  if ((base == 10) && (value < 0))
+    {              
+      str[i++] = '-';
+      uvalue = (unsigned)-value;
+    }
+  else
+    uvalue = (unsigned)value;
+  
+  utoa (uvalue, &str[i], base);
+  return str;
 }

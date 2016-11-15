@@ -31,17 +31,18 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
+*                 file : $RCSfile: gnu_basename.c,v $ 
 *               author : $Author Imagination Technologies Ltd
 *    date last revised : $
 *      current version : $
 ******************************************************************************/
 
 #include <string.h>
-void
-bzero(void *b, size_t length)
+
+char *__gnu_basename(const char *path)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  char *p;
+  if ((p = strrchr (path, '/')))
+    return p + 1;
+  return (char *) path;
 }

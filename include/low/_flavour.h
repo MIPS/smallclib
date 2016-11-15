@@ -73,7 +73,7 @@ extern "C" {
 #define __IEEE754__
 
 /* Enable handling of multi-byte character sets */
-#define _MB_CAPABLE 1
+//#define _MB_CAPABLE 1
 
 /* Enable handling of NaN and infinity */
 #define __MATH_NONFINITE__

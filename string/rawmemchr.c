@@ -31,17 +31,31 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
+*                 file : $RCSfile: rawmemchr.c,v $ 
 *               author : $Author Imagination Technologies Ltd
 *    date last revised : $
 *      current version : $
 ******************************************************************************/
 
+/*
+ * This function searches memory starting at SRC for the
+ * character C.  The search only ends with the first occurrence
+ * of C; in particular, NULL does not terminate the search.
+ * No bounds checking is performed, so this function should only
+ * be used when it is certain that the character C will be found.
+*/
+
 #include <string.h>
-void
-bzero(void *b, size_t length)
+
+void *rawmemchr(const void *src_void, int c)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  const unsigned char *src = (const unsigned char *) src_void;
+  unsigned char d = c;
+
+  while (1)
+    {
+      if (*src == d)
+        return (void *) src;
+      src++;
+    }
 }

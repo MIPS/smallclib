@@ -31,17 +31,44 @@
  ******************************************************************************/
 
 /******************************************************************************
-*                 file : $RCSfile: bzero.c,v $ 
-*               author : $Author Imagination Technologies Ltd
-*    date last revised : $
-*      current version : $
+*              file : $RCSfile: msize.c,v $
+*            author : $Author Imagination Technologies Ltd
+* date last revised : $
+*   current version : $
 ******************************************************************************/
 
-#include <string.h>
-void
-bzero(void *b, size_t length)
+#include <stdlib.h>
+#include <low/_malloc.h>
+
+#ifdef __mips_clib_tiny
+
+size_t malloc_usable_size(void * ptr)
 {
-  char *ptr = (char *)b;
-  while (length--)
-    *ptr++ = 0;
+  unsigned char *block = NULL;
+  unsigned int info = 0;
+  block = ((unsigned char *) ptr) - ADMIN_SIZE;
+  info = get_info (block);
+  return get_block_size (info);
 }
+
+#else /* ! __mips_clib_tiny */
+
+size_t malloc_usable_size(void * ptr)
+{
+  chunk *block;
+  int size_or_offset;
+
+  /* Get chunk from ptr */
+  block = (chunk *) (ptr - ADMIN_SIZE);
+  size_or_offset = (block->size & ~CHUNK_USED);
+
+  if (size_or_offset < 0)
+  {
+      block = (chunk *)((char *)block + block->size);
+      return (block->size & ~CHUNK_USED) - ADMIN_SIZE + size_or_offset;
+  }
+
+  return (block->size & ~CHUNK_USED) - ADMIN_SIZE;
+}
+
+#endif

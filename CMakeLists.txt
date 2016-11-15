@@ -201,6 +201,7 @@ set (sources_common
 	stdlib/getenv.c
 	stdlib/getopt.c
 	stdlib/getsubopt.c
+	stdlib/itoa.c
 	stdlib/jrand48.c
 	stdlib/ldtoa.c
 	stdlib/l64a.c
@@ -226,6 +227,8 @@ set (sources_common
 	stdlib/mprec.c
 	stdlib/mrand48.c
 	stdlib/mstats.c
+	stdlib/malign.c
+	stdlib/msize.c
 	stdlib/nrand48.c
 	stdlib/on_exit.c
 	stdlib/putenv.c
@@ -267,6 +270,7 @@ set (sources_common
 	stdlib/wcstod.c
 	stdlib/assert.c
 	stdlib/system.c
+	stdlib/utoa.c
 #	stdlib/_mbtowc_r.c
 #	stdlib/_wcstombs_r.c
 #	stdlib/_wctomb_r.c
@@ -281,6 +285,9 @@ set (sources_common
 	string/bcmp.c
 	string/bcopy.c
 	string/bzero.c
+	string/explicit_bzero.c
+	string/gnu_basename.c
+	string/rawmemchr.c
 	string/index.c
 	string/memccpy.c
 	string/memchr.c
