@@ -85,7 +85,7 @@ void *malloc (size_t size)
       if (IS_FREE(block))
         {
           rem_size = block->size - alloc_size;
-          if (rem_size >= 0)
+          if ((long)rem_size >= 0)
             {
               /* Split this chunk */
               if (rem_size >= MALLOC_MINCHUNK)

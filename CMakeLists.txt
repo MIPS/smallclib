@@ -613,13 +613,14 @@ set (sources_math_import
 
 # set sources, headers are added auto-magically by dependency generation
 set (sources_sz
-	string/memcpy.S
+#	string/memcpy.S     # From newlib source
+	string/memcpy_c.c   # Optimized version by RichF
 	stdlib/malloc.c
 	signal/signal.c
 )
 
 set (sources_szx
-	string/memcpy.c
+	string/memcpy.c     # Byte copy for tiny lib
 	stdlib/malloc_tiny.c
 	stdlib/getenv_nofio.c
 	signal/signal_tiny.c

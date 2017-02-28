@@ -152,7 +152,7 @@ undefined, but it may be useful for batch test-runs or debugging */
 #endif /* _MIPS_ARCH_MIPS32R2 || _MIPS_ARCH_MIPS64R2 */
 
 /* This controls the use of clz instruction for float/double value, not supported for mips16 mode */
-#if !defined(__mips16) || !defined(__mips_soft_float) 
+#if defined(__mips_xlp) && !defined(__mips16) && !defined(__mips_soft_float)
 #define __HW_COUNT_LEAD_ZEROS__  /* For CLZ rt, rs */
 #endif
 

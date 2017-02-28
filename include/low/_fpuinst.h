@@ -77,9 +77,13 @@ remaining bits set to 0 */
 #if defined(__mips16) && defined(__mips_soft_float) 
 #define __inst_ldi_S_H(o,bits)	SET_FLOAT_WORD(o,bits<<16);
 #else
+#if __mips_isa_rev > 6
+#define __inst_ldi_S_H(o,bits)	SET_FLOAT_WORD(o,bits<<16);
+#else
 #define __inst_ldi_S_H(o,bits)	{__uint32_t __tmp;			\
 		__asm__ ("lui %0, %1\n": "=r"(__tmp): "K" (bits));	\
 		SET_FLOAT_WORD(o,__tmp);				}
+#endif
 #endif
 
 
@@ -172,16 +176,17 @@ Steps:
 	7. Save cause field so that no other exceptions can be triggered
 	8. Restore old exception-enabled state	
 	9. Convert output to target format */
-#define __inst_rint_fmt(from,thru,op,in,flags) {__uint32_t __state, __tmp; \
+#define __inst_rint_fmt(from,thru,op,in,flags) {__uint32_t __state, __tmp, __tmp2; \
     __asm__ ("cfc1 %2, $28\n\t"						\
 	     "andi %3, %2, 0x83\n\t"					\
 	     "ctc1 %3, $28\n\t"						\
-	     "cvt" thru from " %0, %4\n\t"				\
+	     "cvt" thru from " %0, %5\n\t"				\
 	     "cfc1 %1, $26\n\t"						\
-	     "andi %3, %1, 0x1000\n\t"					\
+	     "li   %4, 0x1000\n\t"					\
+	     "and  %3, %1, %4\n\t"					\
 	     "ctc1 %3, $26\n\t"						\
 	     "ctc1 %2, $28" :						\
-	     "=f" (op), "=r" (flags), "=r" (__state), "=r" (__tmp) :	\
+	     "=f" (op), "=r" (flags), "=r" (__state), "=r" (__tmp), "=r" (__tmp2) :	\
 	     "f" (in));							\
     __inst_conv_gen(from thru, op,op);			       		}
 
