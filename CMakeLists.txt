@@ -876,7 +876,12 @@ include_directories(include)
 SET(CMAKE_C_FLAGS_RELEASE "-Wall -Werror -Wno-char-subscripts")
 
 # Prepend the default set of compiler flags
-SET(CMAKE_C_FLAGS "-mno-gpopt -Os -fsection-anchors -D_COMPILING_NEWLIB -mabs=2008 ${CMAKE_C_FLAGS}")
+SET(CMAKE_C_FLAGS "-mno-gpopt -Os -fsection-anchors -D_COMPILING_NEWLIB ${CMAKE_C_FLAGS}")
+
+IF(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "nanomips-img-elf")
+  SET(CMAKE_C_FLAGS "-mabs=2008 ${CMAKE_C_FLAGS}")
+ENDIF ()
+
 SET(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS} -c")
 
 # Canonicalize the install prefix. This makes the multilib reference directory

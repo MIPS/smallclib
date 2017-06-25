@@ -77,7 +77,7 @@ remaining bits set to 0 */
 #if defined(__mips16) && defined(__mips_soft_float) 
 #define __inst_ldi_S_H(o,bits)	SET_FLOAT_WORD(o,bits<<16);
 #else
-#if __mips_isa_rev > 6
+#ifdef __nanomips__
 #define __inst_ldi_S_H(o,bits)	SET_FLOAT_WORD(o,bits<<16);
 #else
 #define __inst_ldi_S_H(o,bits)	{__uint32_t __tmp;			\
