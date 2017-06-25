@@ -55,15 +55,15 @@
 					       "=r" (o) :		\
 					       "r" (i));
 
-#define __inst_clear_bits(o,pos,num)  __asm__ ("ins %0, $0, %1, %2" :	\
+#define __inst_clear_bits(o,pos,num)  __asm__ ("ins %0, $zero, %1, %2" :	\
 					       "+r" (o) :		\
 					       "K" (pos), "K" (num));
 
-#define __inst_clear_hi_bits(o,num)  __asm__ ("ins %0, $0, %1, %2" :	\
+#define __inst_clear_hi_bits(o,num)  __asm__ ("ins %0, $zero, %1, %2" :	\
 					      "+r" (o) :		\
 					      "K" (32-num), "K" (num));
 
-#define __inst_clear_lo_bits(o,num)  __asm__ ("ins %0, $0, %1, %2" :	\
+#define __inst_clear_lo_bits(o,num)  __asm__ ("ins %0, $zero, %1, %2" :	\
 					      "+r" (o) :		\
 					      "K" (0), "K" (num));
 

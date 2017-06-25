@@ -90,7 +90,7 @@ remaining bits set to 0 */
 /* Instructions to load upper-16 bit hex pattern to double register, 
 remaining bits set to 0 */
 #if !defined(__mips16)
-#define __inst_ldi_D_H(o,bits)	__asm__ ("mtc1 $0, %0\n\t"		\
+#define __inst_ldi_D_H(o,bits)	__asm__ ("mtc1 $zero, %0\n\t"		\
 					 "mthc1 %1, %0" :		\
 					 "=f" (o): "r" (bits));
 #else /* MIPS32R2 or MIPS64R2 */
@@ -116,7 +116,7 @@ remaining bits set to 0 */
 
 
 #define __inst_fenr_save_reset(save) __asm__ ("cfc1 %0, $28\n"		\
-					      "ctc1 $0, $28\n":	\
+					      "ctc1 $zero, $28\n":	\
 					      "=r" (save));
 
 #define __inst_fpstatus_read(save) __asm__ ("cfc1 %0, $31\n":	\
@@ -128,7 +128,7 @@ remaining bits set to 0 */
 
 
 #define __inst_fexr_save_reset(save) __asm__ ("cfc1 %0, $26\n"		\
-					      "ctc1 $0, $26\n" :	\
+					      "ctc1 $zero, $26\n" :	\
 					      "=r" (save));
 
 
@@ -149,10 +149,10 @@ Steps:
 #define __inst_conv_D(inst,op,in,flags) {				\
 		__uint32_t __state;					\
 		__asm__ ("cfc1 %2, $28\n\t"				\
-			 "ctc1 $0, $28\n\t"				\
+			 "ctc1 $zero, $28\n\t"				\
 			 inst ".L.D %0, %3\n\t"				\
 			 "cfc1 %1, $26\n\t"				\
-			 "ctc1 $0, $26\n\t"				\
+			 "ctc1 $zero, $26\n\t"				\
 			 "ctc1 %2, $28" :				\
 			 "=f" (op), "=r" (flags), "=r" (__state) :	\
 			 "f" (in));					\
@@ -212,7 +212,7 @@ Steps:
 	     "ctc1 %3, $28\n\t"						\
 	     "cvt" thru from " %0, %4\n\t"				\
 	     "cfc1 %1, $26\n\t"						\
-	     "ctc1 $0, $26\n\t"						\
+	     "ctc1 $zero, $26\n\t"					\
 	     "ctc1 %2, $28" :						\
 	     "=f" (op), "=r" (flags), "=r" (__state), "=r"(__tmp) :	\
 	     "f" (in));							\
@@ -234,10 +234,10 @@ Steps:
 #define __inst_conv_S(inst,op,in,flags) {				\
 		__uint32_t __state;					\
 		__asm__ ("cfc1 %2, $28\n\t"				\
-			 "ctc1 $0, $28\n\t"				\
+			 "ctc1 $zero, $28\n\t"				\
 			 inst ".W.S %0, %3\n\t"				\
 			 "cfc1 %1, $26\n\t"				\
-			 "ctc1 $0, $26\n\t"				\
+			 "ctc1 $zero, $26\n\t"				\
 			 "ctc1 %2, $28\n\t"	:			\
 			 "=f" (op), "=r" (flags), "=r" (__state) :	\
 			 "f" (in));					\
@@ -329,7 +329,7 @@ Steps:
 #endif /* __HW_SET_BITS__ */
 
 #ifdef  __HW_SET_BITS__
-#define __inst_extract_signbit(op)  __asm ("ins %0, $0, 0, 31" :	\
+#define __inst_extract_signbit(op)  __asm ("ins %0, $zero, 0, 31" :	\
 					    "+r" (op));
 #else /* __HW_SET_BITS__ */
 #define __inst_extract_signbit(op)  op=(op>>31)<<31;
@@ -409,4 +409,4 @@ input must be 0 */
 
 /* Single-instruction equivalent of SET_LOW_WORD(fr,0) */
 #define __inst_reset_low_D(op)  \
-	__asm__ ("mtc1 $0, %1": "+f" (op)) ;
+	__asm__ ("mtc1 $zero, %1": "+f" (op)) ;
