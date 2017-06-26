@@ -171,6 +171,7 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 */
 
 /* same as newlib 2.0 */
+#define _XOPEN_SOURCE 500
 #include <stdlib.h>
 #include <low/_stdlib.h>
 

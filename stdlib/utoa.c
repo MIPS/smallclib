@@ -39,7 +39,7 @@
 
 #include <stdlib.h>
 
-char *utoa (int value, char *str, int base)
+char *utoa (unsigned value, char *str, int base)
 {
   const char digits[] = "0123456789abcdefghijklmnopqrstuvwxyz";
   int i, j;
