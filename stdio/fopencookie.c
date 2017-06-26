@@ -42,6 +42,7 @@
  * is freely granted, provided that this notice is preserved.
  */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>

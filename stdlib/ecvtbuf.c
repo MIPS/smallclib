@@ -107,12 +107,15 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 */
 
 /* same as newlib 2.0 */
-
+#define _GNU_SOURCE
 #include <_ansi.h>
 #include <stdlib.h>
 #include <string.h>
 #include <low/_stdlib.h>
 #include <low/mprec.h>
+
+char * _EXFUN (dtoa, (double _d, int mode, int ndigits, int *decpt, int *sign,
+		      char **rve));
 
 static int _cvtlen=0;
 static char *_cvtbuf=NULL;
