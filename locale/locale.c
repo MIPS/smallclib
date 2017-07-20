@@ -998,3 +998,10 @@ __locale_cjk_lang (void)
   return lc_ctype_cjk_lang;
 }
 
+extern __IMPORT char   *__ctype_ptr__;
+
+const char *
+__locale_ctype_ptr (void)
+{
+  return __ctype_ptr__;
+}
