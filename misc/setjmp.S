@@ -59,7 +59,11 @@
 	GPR_OFFSET ($30, 9);	\
 	GPR_OFFSET ($31, 10)
 
-#define NUM_GPRS_SAVED 11
+#if _MIPS_SIM == _ABIP32
+# define NUM_GPRS_SAVED 12
+#else
+# define NUM_GPRS_SAVED 11
+#endif
 
 #ifdef __mips_hard_float
 #if _MIPS_SIM == _ABIN32
@@ -80,15 +84,43 @@
 	FPR_OFFSET ($f29, 5);	\
 	FPR_OFFSET ($f30, 6);	\
 	FPR_OFFSET ($f31, 7);
-/* This deals with the O32 FPXX and FP64 cases.  Here we must use
-   sdc1 and ldc1 to access the FPRs.  These instruction require
-   8-byte aligned addresses.  If the jump buffer is 8-byte aligned 
-   we can not store $31 before the FPRs, as this will cause the buffer
-   to become only 4-byte aligned.  Instead, the FPRs are placed first
-   and $31 is put at the end.  */
-#elif __mips_fpr == 0 || __mips_fpr == 64
+#elif _MIPS_SIM == _ABIP32
 #define FPR_LAYOUT		\
-	and $8, $4, 4;	 	\
+	FPR_OFFSET ($f20, 0);	\
+	FPR_OFFSET ($f21, 2);	\
+	FPR_OFFSET ($f22, 4);	\
+	FPR_OFFSET ($f23, 6);	\
+	FPR_OFFSET ($f24, 8);	\
+	FPR_OFFSET ($f25, 10);	\
+	FPR_OFFSET ($f26, 12);	\
+	FPR_OFFSET ($f27, 14);
+#elif __mips_fpr == 0 || __mips_fpr == 64
+
+/* This deals with the o32 FPXX and FP64 cases.  Here we must use
+   SDC1 and LDC1 to access the FPRs.  These instructions require
+   8-byte aligned addresses.
+   Unfortunately, the MIPS jmp_buf only guarantees 4-byte alignment
+   and this cannot be increased without breaking compatibility with
+   pre-existing objects built against newlib.  There are 11 GPRS
+   saved in the jmp_buf so a buffer that happens to be 8-byte aligned
+   ends up leaving the FPR slots 4-byte aligned and an (only) 4-byte
+   aligned buffer leads to the FPR slots being 8-byte aligned!
+   
+   To resolve this, we move the location of $31 to the last slot
+   in the jmp_buf when the overall buffer is 8-byte aligned.  $31
+   is simply loaded/stored twice to avoid adding complexity to the
+   GPR_LAYOUT macro above as well as FPR_LAYOUT.
+
+   The location of the last slot is index 22 which is calculated
+   from there being 11 GPRs saved and then 12 FPRs saved so the
+   index of the last FPR is 11+11.
+   
+   The base of the jmp_buf is modified in $4 to allow the
+   FPR_OFFSET macros to just use the usual constant slot numbers
+   regardless of whether the realignment happened or not.  */
+
+#define FPR_LAYOUT		\
+	andi $8, $4, 4;	 	\
 	bne $8, $0, 1f;		\
 	GPR_OFFSET ($31, 22);	\
 	addiu $4, $4, -4;	\
@@ -152,10 +184,13 @@ setjmp:
 	FPR_LAYOUT
 #undef GPR_OFFSET
 #undef FPR_OFFSET
-
+#if _MIPS_SIM==_ABIP32 || _MIPS_SIM==_ABIP64
+	move	$4,$0
+	jrc	$31
+#else
 	move	$2,$0
-	j	$31
-
+	jr	$31
+#endif
 	.end	setjmp
 
 /* volatile void longjmp (jmp_buf, int);  */
@@ -174,7 +209,11 @@ longjmp:
 	bne	$5,$0,1f
 	li	$5,1
 1:
+#if _MIPS_SIM==_ABIP32 || _MIPS_SIM==_ABIP64
+	move	$4,$5
+	jrc	$31
+#else
 	move	$2,$5
-	j	$31
-
+	jr	$31
+#endif
 	.end longjmp
