@@ -1,8 +1,6 @@
 /*******************************************************************************
  *
- * Copyright 2014-2015, Imagination Technologies Limited and/or its
- *                      affiliated group companies.
- * All rights reserved.
+ * Copyright (C) 2014-2018 MIPS Tech, LLC
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,18 +27,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-
-/*****************************************************************************
-* Copyright: 2013 by Imagination Technologies Limited. 
-* 	   All rights reserved. No part of this software, either material or
-* 	   conceptual may be copied or distributed, transmitted, transcribed,
-* 	   stored in a retrieval system or translated into any human or 
-* 	   computer language in any form by any means, electronic, mechanical, 
-* 	   manual or other-wise, or disclosed to third parties without the 
-* 	   express written permission of:
-* 		Imagination Technologies Limited, HomePark Industrial Estate, 
-* 		King's Langley, Hertfordshire, WD4 8LZ, U.K.
-******************************************************************************/
 
 /****************************************************************
 

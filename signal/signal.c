@@ -1,8 +1,6 @@
 /*******************************************************************************
  *
- * Copyright 2014-2015, Imagination Technologies Limited and/or its
- *                      affiliated group companies.
- * All rights reserved.
+ * Copyright (C) 2014-2018 MIPS Tech, LLC
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,14 +30,12 @@
 
 /******************************************************************************
 *              file : $RCSfile: signal.c,v $
-*            author : $Author Imagination Technologies Ltd
 * date last revised : $
 *   current version : $
 ******************************************************************************/
 
 /*
  * signal.c
- * Original Author Imagination Technologies Ltd
  *
  * signal associates the function pointed to by func with the signal sig. When
  * a signal occurs, the value of func determines the action taken as follows:

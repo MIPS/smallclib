@@ -1,8 +1,6 @@
 /*******************************************************************************
  *
- * Copyright 2014-2015, Imagination Technologies Limited and/or its
- *                      affiliated group companies.
- * All rights reserved.
+ * Copyright (C) 2014-2018 MIPS Tech, LLC
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +30,6 @@
 
 /******************************************************************************
 *              file : $RCSfile: ldtoa.c,v $
-*            author : $Author Imagination Technologies Ltd
 * date last revised : $
 *   current version : $
 ******************************************************************************/ 
@@ -310,7 +307,6 @@ static _CONST char * _CONST ermsg[7] = {
  * 15 May 92    80-bit long double support
  * 22 Nov 00    Revised to fit into newlib by Jeff Johnston <jjohnstn@redhat.com>
  *
- * Author Imagination Technologies Ltd
  *
  * Copyright (c) 1984,2000 S.L. Moshier
  *

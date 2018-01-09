@@ -1,8 +1,6 @@
 ###############################################################################
 #
-# Copyright 2014-2015, Imagination Technologies Limited and/or its
-#                      affiliated group companies.
-# All rights reserved.
+# Copyright (C) 2014-2018 MIPS Tech, LLC
 # 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -32,7 +30,6 @@
 
 ###############################################################################
 #              file : $RCSfile: CMakeLists.txt,v $
-#            author : $Author: Imagination Technologies Ltd
 # date last revised : 
 #   current version : 
 ###############################################################################
@@ -901,7 +898,7 @@ message (WARNING ": Parts of this software are derived/copied from "
 "license/COPYING.MUSL.  Releasing source code is not mandatory, but if "
 "released, any copyright statement/license text in the original source "
 "file must be preserved!  Files that are written from scratch may carry "
-"just the Imagination Technologies Copyright statement.")
+"just the MIPS Tech, LLC Copyright statement.")
 install (FILES license/COPYING.NEWLIB	license/COPYING.MUSL license/COPYING.CLIB
   DESTINATION share/copying)
 
