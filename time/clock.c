@@ -1,8 +1,6 @@
 /*******************************************************************************
  *
- * Copyright 2014-2015, Imagination Technologies Limited and/or its
- *                      affiliated group companies.
- * All rights reserved.
+ * Copyright (C) 2014-2018 MIPS Tech, LLC
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +30,6 @@
 
 /******************************************************************************
 *              file : $RCSfile: clock.c,v $
-*            author : $Author Imagination Technologies Ltd
 * date last revised : $
 *   current version : $
 ******************************************************************************/
@@ -41,7 +38,6 @@
 
 /*
  * clock.c
- * Original Author Imagination Technologies Ltd
  *
  * Determines the processor time used by the program since invocation. The time
  * in seconds is the value returned divided by the value of the macro CLK_TCK.

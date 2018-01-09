@@ -1,8 +1,6 @@
 /*******************************************************************************
  *
- * Copyright 2014-2015, Imagination Technologies Limited and/or its
- *                      affiliated group companies.
- * All rights reserved.
+ * Copyright (C) 2014-2018 MIPS Tech, LLC
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +30,6 @@
 
 /******************************************************************************
 * 		  file : $RCSfile: asctime.c,v $ 
-*     		author : $Author Imagination Technologies Ltd
 *    date last revised : $
 *      current version : $
 ******************************************************************************/
@@ -41,7 +38,6 @@
 
 /*
  * asctime.c
- * Original Author Imagination Technologies Ltd
  *
  * Converts the broken down time in the structure pointed to by tim_p into a
  * string of the form

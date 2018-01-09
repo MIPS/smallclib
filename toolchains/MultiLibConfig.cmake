@@ -1,9 +1,7 @@
 
 ###############################################################################
 #
-# Copyright 2014-2015, Imagination Technologies Limited and/or its
-#                      affiliated group companies.
-# All rights reserved.
+# Copyright (C) 2014-2018 MIPS Tech, LLC
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,7 +31,6 @@
 
 ###############################################################################
 #              file : $RCSfile: MultiLibConfig.cmake,v $
-#            author : $Author: Imagination Technologies Ltd
 # date last revised : 
 #   current version : 
 ###############################################################################
@@ -122,19 +119,6 @@
 # 	 ARCHIVE DESTINATION lib/${MULTILIB_DIR})
 #   endif (MULTILIB_TOP)
 #
-
-#=============================================================================
-# Copyright 2014 Imagination Technologies Limited
-#
-# Distributed under the OSI-approved BSD License (the "License");
-# see accompanying file Copyright.txt for details.
-#
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the License for more information.
-#=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
 
 cmake_policy(PUSH)
 cmake_minimum_required(VERSION 2.6)
