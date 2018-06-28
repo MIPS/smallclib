@@ -127,6 +127,7 @@ set (sources_common
 	misc/ffs.c
 	misc/fini.c
 	misc/setjmp.S
+	misc/init.c
 
 #	reent/gettimeofdayr.c
 #	reent/reent_data.c
