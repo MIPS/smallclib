@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: wf_exp.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* wf_exp.c -- float version of w_exp.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

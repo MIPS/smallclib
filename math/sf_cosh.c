@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: ef_cosh.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, optimized in place for size, merged wrapper function*/
 
 /* ef_cosh.c -- float version of e_cosh.c.

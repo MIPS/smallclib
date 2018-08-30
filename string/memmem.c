@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: memmem.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Byte-wise substring search, using the Two-Way algorithm.
  * Copyright (C) 2008 Eric Blake
  * Permission to use, copy, modify, and distribute this software

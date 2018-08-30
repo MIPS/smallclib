@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: s_llrint.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Soft-float version from Newlib 2.0, optimized FPU version from scratch */
 
 /* lrint adapted to be llrint for Newlib, 2009 by Craig Howland.  */

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: fma.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Fused multiply-add, double precision with no intermediate rounding.
    Ref: "Accurate Sum and Dot Product with Applications" - Ogita, Rump, Oishi
    http://www.ti3.tu-harburg.de/paper/rump/OgRuOi04a.pdf

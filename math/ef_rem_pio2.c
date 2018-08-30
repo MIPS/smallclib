@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: ef_rem_pio2.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /*  Full range reduction borrowed from Newlib 2.8 - uses Payne-Hanek reduction for
 good accuracy over a large range of inputs.
 

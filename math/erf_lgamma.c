@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: erf_lgamma.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* erf_lgamma.c -- float version of er_lgamma.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

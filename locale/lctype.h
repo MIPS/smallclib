@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: lctype.h,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /*
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

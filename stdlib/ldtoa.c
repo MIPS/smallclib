@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: ldtoa.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/ 
- 
  
 /* Extended precision arithmetic functions for long double I/O.
 * This program has been placed in the public domain.

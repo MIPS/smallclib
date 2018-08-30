@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: ef_exp.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* ef_exp.c -- float version of e_exp.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

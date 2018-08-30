@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: argz_insert.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* Copyright (C) 2002, 2005 by  Red Hat, Incorporated. All rights reserved.
  *
  * Permission to use, copy, modify, and distribute this software

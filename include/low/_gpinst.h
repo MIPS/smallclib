@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: _gpinst.h,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Internal header - macros to access general purpose instructions */
 
 #define __inst_set_bits(o,i,pos,num)  __asm__ ("ins %0, %1, %2, %3" :	\

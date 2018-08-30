@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_ldexp.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_ldexp.c -- float version of s_ldexp.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */
