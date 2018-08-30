@@ -28,12 +28,6 @@
 # 
 ###############################################################################
 
-###############################################################################
-#              file : $RCSfile: CMakeLists.txt,v $
-# date last revised : 
-#   current version : 
-###############################################################################
-
 # Description   Leaf CMake file for Size-optimized C library
 
 #cmake_minimum_required(VERSION 2.6)

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: _rand_data,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 extern unsigned short __rand48_seed[3];
 extern unsigned short __rand48_mult[3];
 extern unsigned short __rand48_add;

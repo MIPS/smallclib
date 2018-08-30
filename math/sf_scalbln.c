@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_scalbln.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* s_scalbnf.c -- float version of s_scalbn.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

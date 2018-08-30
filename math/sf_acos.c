@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_acos.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, merged wrapper, factored out common polynomial step */
 
 /* ef_acos.c -- float version of e_acos.c.

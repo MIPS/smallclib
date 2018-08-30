@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: kf_rem_pio2.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Snarfed from Newlib v2.0, optimized for size 
 - Last 2 arguments (prec & two_over_pi) are fixed. 
 - Type of array two_over_pi changed from 32-bit integers to 8-bit integers.

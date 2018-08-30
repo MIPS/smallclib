@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_erf.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_erf.c -- float version of s_erf.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

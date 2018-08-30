@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_rint.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_rint.c -- float version of s_rint.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: mbsnrtowcs.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /*
 FUNCTION
 <<mbsrtowcs>>, <<mbsnrtowcs>>---convert a character string to a wide-character string

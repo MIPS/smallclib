@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_floor.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Soft-float version from Newlib 2.0, optimized FPU version from scratch */
 
 /* sf_floor.c -- float version of s_floor.c.

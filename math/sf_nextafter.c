@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_nextafter.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_nextafter.c -- float version of s_nextafter.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: ef_hypot.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* ef_hypot.c -- float version of e_hypot.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

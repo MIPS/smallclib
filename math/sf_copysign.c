@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: s_copysign.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Softfloat from Newlib 2.0, FP optimized version from scratch */
 
 /* sf_copysign.c -- float version of s_copysign.c.

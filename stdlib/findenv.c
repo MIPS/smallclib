@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: findenv.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* This file may have been modified by DJ Delorie (Jan 1991).  If so,
 ** these modifications are Copyright (C) 1991 DJ Delorie.
 */

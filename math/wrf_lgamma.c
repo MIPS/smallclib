@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: wrf_lgamma.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* wrf_lgamma.c -- float version of wr_lgamma.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

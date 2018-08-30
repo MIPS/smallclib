@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_log1p.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, remove NaN/Inf handling for tiny version
 Modified constants loads, removed specific branch code which was
 identical under IEEE754 arithmetic to the alternative branch. */
