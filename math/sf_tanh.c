@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_tanh.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 
 /* sf_tanh.c -- float version of s_tanh.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.

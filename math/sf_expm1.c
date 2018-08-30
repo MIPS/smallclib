@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_expm1.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_expm1.c -- float version of s_expm1.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

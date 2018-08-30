@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: _machine.inc,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Bit descriptors for floating point status/control registers */
 
 #define FCSR_ENABLE_BITS		0x000007C0

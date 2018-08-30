@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: wf_tgamma.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* w_gammaf.c -- float version of w_gamma.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

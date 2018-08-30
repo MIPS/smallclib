@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: erf_gamma.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* erf_gamma.c -- float version of er_gamma.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

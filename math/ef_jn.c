@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: ef_jn.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 
 /* ef_jn.c -- float version of e_jn.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.

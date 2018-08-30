@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_remquo.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, optimized in place for size */
 
 /* Adapted for Newlib, 2009.  (Allow for int < 32 bits; return *quo=0 during

@@ -29,12 +29,6 @@
 #
 ###############################################################################
 
-###############################################################################
-#              file : $RCSfile: ToolChainMIPS.txt,v $
-# date last revised : 
-#   current version : 
-###############################################################################
-
 # Toolchain descriptor for building with Bare Metal MIPS gcc toolkit
 
 # this one is important

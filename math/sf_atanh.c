@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: sf_atanh.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* sf_atanh.c -- float version of e_atanh.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

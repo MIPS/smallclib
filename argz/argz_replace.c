@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: argz_replace.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved.
  *
  * Permission to use, copy, modify, and distribute this software

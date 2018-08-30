@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: sf_fdim.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, remove NaN/Inf handling for tiny version */
 
 /* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved.

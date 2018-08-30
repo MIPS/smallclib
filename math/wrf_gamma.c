@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: wrf_gammaq.c,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* wrf_gamma.c -- float version of wr_gamma.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
  */

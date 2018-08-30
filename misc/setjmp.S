@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*              file : $RCSfile: setjmp.S,v $
-* date last revised : $
-*   current version : $
-******************************************************************************/
-
 /* This is a simple version of setjmp and longjmp for MIPS 32 and 64.
 
    Ian Lance Taylor, Cygnus Support, 13 May 1993.  */

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: wf_jn.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 
 /* wf_jn.c -- float version of w_jn.c.
  * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.

@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: wcsnrtombs.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /*
 FUNCTION
 <<wcsrtombs>>, <<wcsnrtombs>>---convert a wide-character string to a character string

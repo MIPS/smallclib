@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: s_fpclassify.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* From Newlib 2.0, minor rewrite in FP_ZERO condition */
 
 /* Copyright (C) 2002, 2007 by  Red Hat, Incorporated. All rights reserved.

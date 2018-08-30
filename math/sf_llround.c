@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-* 		  file : $RCSfile: s_lround.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /* Soft-float version from Newlib 2.0, optimized FPU version from scratch */
 
 /* lroundf adapted to be llroundf for Newlib, 2009 by Craig Howland.  */

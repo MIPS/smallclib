@@ -28,12 +28,6 @@
  *
  ******************************************************************************/
 
-/******************************************************************************
-*                 file : $RCSfile: rawmemchr.c,v $ 
-*    date last revised : $
-*      current version : $
-******************************************************************************/
-
 /*
  * This function searches memory starting at SRC for the
  * character C.  The search only ends with the first occurrence
