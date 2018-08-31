@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014-2018 MIPS Tech, LLC
+# Copyright (C) 2014-2018 Wave Computing, Inc.
 # 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -892,7 +892,7 @@ message (WARNING ": Parts of this software are derived/copied from "
 "license/COPYING.MUSL.  Releasing source code is not mandatory, but if "
 "released, any copyright statement/license text in the original source "
 "file must be preserved!  Files that are written from scratch may carry "
-"just the MIPS Tech, LLC Copyright statement.")
+"just the Wave Computing, Inc. Copyright statement.")
 install (FILES license/COPYING.NEWLIB	license/COPYING.MUSL license/COPYING.CLIB
   DESTINATION share/copying)
 
