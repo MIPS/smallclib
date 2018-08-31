@@ -1,7 +1,7 @@
 
 ###############################################################################
 #
-# Copyright (C) 2014-2018 MIPS Tech, LLC
+# Copyright (C) 2014-2018 Wave Computing, Inc.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
