@@ -140,8 +140,7 @@ QUICKREF
 #ifndef _DOUBLE_IS_32BITS
 
 int
-_DEFUN (__isnand, (x),
-	double x)
+__isnand (double x)
 {
 	__int32_t hx,lx;
 	EXTRACT_WORDS(hx,lx,x);

@@ -414,40 +414,40 @@ typedef struct _Bigint _Bigint;
 #define tinytens __mprec_tinytens
 
 struct FPI;
-double 		_EXFUN(ulp,(double x));
-double		_EXFUN(b2d,(_Bigint *a , int *e));
-_Bigint *	_EXFUN(Balloc,(int k));
-void 		_EXFUN(Bfree,(_Bigint *v));
-_Bigint *	_EXFUN(multadd,( _Bigint *, int, int));
-_Bigint *	_EXFUN(s2b,(const char*, int, int, __ULong));
-_Bigint	*	_EXFUN(i2b,(int));
-_Bigint *	_EXFUN(mult, (_Bigint *, _Bigint *));
-_Bigint *	_EXFUN(pow5mult, (_Bigint *, int k));
-int 		_EXFUN(hi0bits,(__ULong));
-int 		_EXFUN(lo0bits,(__ULong *));
-_Bigint *	_EXFUN(d2b,(double d, int *e, int *bits));
-_Bigint *	_EXFUN(lshift,(_Bigint *b, int k));
-_Bigint *	_EXFUN(diff,( _Bigint *a, _Bigint *b));
-int		_EXFUN(cmp,(_Bigint *a, _Bigint *b));
-int		_EXFUN(gethex,(_CONST char **sp, _CONST struct FPI *fpi, Long *exp, _Bigint **bp, int sign));     
-double		_EXFUN(ratio,(_Bigint *a, _Bigint *b));
-__ULong		_EXFUN(any_on,(_Bigint *b, int k));
-void		_EXFUN(copybits,(__ULong *c, int n, _Bigint *b));
+double 		ulp (double x);
+double		b2d (_Bigint *a , int *e);
+_Bigint *	Balloc (int k);
+void 		Bfree (_Bigint *v);
+_Bigint *	multadd ( _Bigint *, int, int);
+_Bigint *	s2b (const char*, int, int, __ULong);
+_Bigint	*	i2b (int);
+_Bigint *	mult (_Bigint *, _Bigint *);
+_Bigint *	pow5mult (_Bigint *, int k);
+int 		hi0bits (__ULong);
+int 		lo0bits (__ULong *);
+_Bigint *	d2b (double d, int *e, int *bits);
+_Bigint *	lshift (_Bigint *b, int k);
+_Bigint *	diff ( _Bigint *a, _Bigint *b);
+int		cmp (_Bigint *a, _Bigint *b);
+int		gethex (const char **sp, const struct FPI *fpi, Long *exp, _Bigint **bp, int sign);
+double		ratio (_Bigint *a, _Bigint *b);
+__ULong		any_on (_Bigint *b, int k);
+void		copybits (__ULong *c, int n, _Bigint *b);
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__) || defined(_SMALL_HEXDIG)
-unsigned char _EXFUN(__hexdig_fun,(unsigned char));
+unsigned char __hexdig_fun (unsigned char);
 #endif /* !defined(PREFER_SIZE_OVER_SPEED) && !defined(__OPTIMIZE_SIZE__) && !defined(_SMALL_HEXDIG) */
 #ifdef INFNAN_CHECK
-int		_EXFUN(hexnan,(_CONST char **sp, _CONST struct FPI *fpi, __ULong *x0));
+int		hexnan (const char **sp, const struct FPI *fpi, __ULong *x0);
 #endif
 
 #define Bcopy(x,y) memcpy((char *)&x->_sign, (char *)&y->_sign, y->_wds*sizeof(__Long) + 2*sizeof(int))
 
-extern _CONST double tinytens[];
-extern _CONST double bigtens[];
-extern _CONST double tens[];
+extern const double tinytens[];
+extern const double bigtens[];
+extern const double tens[];
 #if !defined(PREFER_SIZE_OVER_SPEED) && !defined(__OPTIMIZE_SIZE__) && !defined(_SMALL_HEXDIG)
-extern _CONST unsigned char __hexdig[];
+extern const unsigned char __hexdig[];
 #endif /* !defined(PREFER_SIZE_OVER_SPEED) && !defined(__OPTIMIZE_SIZE__) && !defined(_SMALL_HEXDIG) */
 
 
-double _EXFUN(_mprec_log10,(int));
+double _mprec_log10 (int);

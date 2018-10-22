@@ -41,8 +41,7 @@
 #ifndef _DOUBLE_IS_32BITS
 
 int
-_DEFUN (__isinfd, (x),
-	double x)
+__isinfd (double x)
 {
 	__int32_t hx,lx;
 	EXTRACT_WORDS(hx,lx,x);

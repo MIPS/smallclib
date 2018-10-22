@@ -115,9 +115,8 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 
 
 int
-_DEFUN(fseek, (fp, offset, whence),
-       register FILE *fp _AND
-       long offset       _AND
+fseek (register FILE *fp,
+       long offset      ,
        int whence)
 {
   return fseeko (fp, offset, whence);

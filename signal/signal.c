@@ -51,7 +51,7 @@
 #include <sys/unistd.h>
 
 /* Declare kill() to suppress compilation warning */
-int _EXFUN(kill, (pid_t, int));
+int kill (pid_t, int);
   
 typedef void (*sig_func_ptr)(int);
 extern sig_func_ptr _sig_func[NSIG];

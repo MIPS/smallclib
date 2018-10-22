@@ -113,8 +113,7 @@ static char sccsid[] = "%W% (Berkeley) %G%";
 #include <errno.h>
 
 long
-_DEFUN(ftell, (fp),
-       register FILE * fp)
+ftell (register FILE * fp)
 {
   _fpos_t pos;
 

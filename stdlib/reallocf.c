@@ -63,9 +63,8 @@
 #include <stdlib.h>
 
 
-_PTR
-_DEFUN (reallocf, (ptr, size),
-  _PTR ptr _AND
+void *
+reallocf (void * ptr,
   size_t size)
 {
   void *nptr;

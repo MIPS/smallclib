@@ -122,7 +122,7 @@ static char sccsid[] = "@(#)ctype_.c	5.6 (Berkeley) 6/1/90";
 /* No static const on Cygwin since it's referenced and potentially overwritten
    for compatibility with older applications. */
 #ifndef __CYGWIN__
-static _CONST
+static const
 #endif
 char _ctype_b[128 + 256] = {
 	_CTYPE_DATA_128_255,
@@ -132,13 +132,13 @@ char _ctype_b[128 + 256] = {
 
 #ifdef _NEED_OLD_CTYPE_PTR_DEFINITION
 #ifndef _MB_CAPABLE
-_CONST
+const
 #endif
 char __EXPORT *__ctype_ptr = (char *) _ctype_b + 128;
 #endif
 
 #ifndef _MB_CAPABLE
-_CONST
+const
 #endif
 char __EXPORT *__ctype_ptr__ = (char *) _ctype_b + 127;
 
@@ -160,7 +160,7 @@ __asm__ ("					\n\
 #    endif
 #  else /* !__CYGWIN__ */
 
-_CONST char _ctype_[1 + 256] = {
+const char _ctype_[1 + 256] = {
 	0,
 	_CTYPE_DATA_0_127,
 	_CTYPE_DATA_128_255
@@ -169,7 +169,7 @@ _CONST char _ctype_[1 + 256] = {
 
 #else	/* !defined(ALLOW_NEGATIVE_CTYPE_INDEX) */
 
-_CONST char _ctype_[1 + 256] = {
+const char _ctype_[1 + 256] = {
 	0,
 	_CTYPE_DATA_0_127,
 	_CTYPE_DATA_128_255
@@ -177,13 +177,13 @@ _CONST char _ctype_[1 + 256] = {
 
 #ifdef _NEED_OLD_CTYPE_PTR_DEFINITION
 #ifndef _MB_CAPABLE
-_CONST
+const
 #endif
 char *__ctype_ptr = (char *) _ctype_ + 1;
 #endif
 
 #ifndef _MB_CAPABLE
-_CONST
+const
 #endif
 char *__ctype_ptr__ = (char *) _ctype_;
 

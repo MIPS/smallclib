@@ -65,9 +65,7 @@ static struct _Bigint *_result;
 static int _result_k;
 
 static int
-_DEFUN (quorem,
-	(b, S),
-	_Bigint * b _AND _Bigint * S)
+quorem (_Bigint * b, _Bigint * S)
 {
   int n;
   __Long borrow, y;
@@ -209,13 +207,11 @@ _DEFUN (quorem,
 
 
 char *
-_DEFUN (dtoa,
-	(_d, mode, ndigits, decpt, sign, rve),
-	double _d _AND
-	int mode _AND
-	int ndigits _AND
-	int *decpt _AND
-	int *sign _AND
+dtoa (double _d,
+	int mode,
+	int ndigits,
+	int *decpt,
+	int *sign,
 	char **rve)
 {
   /*	Arguments ndigits, decpt, sign are similar to those

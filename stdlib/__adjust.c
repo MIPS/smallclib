@@ -41,9 +41,8 @@
 #define abs(x) (((x) < 0) ? -(x) : (x))
 
 double
-_DEFUN (__adjust, (acc, dexp, sign),
-	double *acc _AND
-	int dexp _AND
+__adjust (double *acc,
+	int dexp,
 	int sign)
      /* *acc	the 64 bit accumulator */
      /* dexp	decimal exponent       */

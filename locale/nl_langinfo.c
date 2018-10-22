@@ -210,8 +210,7 @@ static struct _nl_item_t
 extern char *__locale_charset ();
 
 char *
-_DEFUN(nl_langinfo, (item), 
-       nl_item item) {
+nl_langinfo (nl_item item) {
 
    char *ret, *cs;
 #ifndef __CYGWIN__

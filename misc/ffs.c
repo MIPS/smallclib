@@ -62,8 +62,7 @@ No supporting OS subroutines are required.  */
 #include <strings.h>
 
 int
-_DEFUN(ffs, (word),
-       int word)
+ffs (int word)
 {
   int i;
 

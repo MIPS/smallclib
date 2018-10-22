@@ -125,7 +125,7 @@
   static struct _Bigint **_freelist;
     struct _Bigint *_p5s;
 _Bigint *
-_DEFUN (Balloc, (k), int k)
+Balloc (int k)
 {
   int x;
   _Bigint *rv ;
@@ -161,7 +161,7 @@ _DEFUN (Balloc, (k), int k)
 }
 
 void
-_DEFUN (Bfree, (v),  _Bigint * v)
+Bfree (_Bigint * v)
 {
   if (v)
     {
@@ -171,9 +171,8 @@ _DEFUN (Bfree, (v),  _Bigint * v)
 }
 
 _Bigint *
-_DEFUN (multadd, ( b, m, a),
-	_Bigint * b _AND
-	int m _AND
+multadd (_Bigint * b,
+	int m,
 	int a)
 {
   int i, wds;
@@ -217,10 +216,9 @@ _DEFUN (multadd, ( b, m, a),
 }
 
 _Bigint *
-_DEFUN (s2b, (s, nd0, nd, y9),
-	_CONST char *s _AND
-	int nd0 _AND
-	int nd _AND
+s2b (const char *s,
+	int nd0,
+	int nd,
 	__ULong y9)
 {
   _Bigint *b;
@@ -256,8 +254,7 @@ _DEFUN (s2b, (s, nd0, nd, y9),
 }
 
 int
-_DEFUN (hi0bits,
-	(x), register __ULong x)
+hi0bits (register __ULong x)
 {
   register int k = 0;
 
@@ -291,7 +288,7 @@ _DEFUN (hi0bits,
 }
 
 int
-_DEFUN (lo0bits, (y), __ULong *y)
+lo0bits (__ULong *y)
 {
   register int k;
   register __ULong x = *y;
@@ -341,7 +338,7 @@ _DEFUN (lo0bits, (y), __ULong *y)
 }
 
 _Bigint *
-_DEFUN (i2b, (i), int i)
+i2b (int i)
 {
   _Bigint *b;
 
@@ -352,7 +349,7 @@ _DEFUN (i2b, (i), int i)
 }
 
 _Bigint *
-_DEFUN (mult, (a, b), _Bigint * a _AND _Bigint * b)
+mult (_Bigint * a, _Bigint * b)
 {
   _Bigint *c;
   int k, wa, wb, wc;
@@ -444,12 +441,11 @@ _DEFUN (mult, (a, b), _Bigint * a _AND _Bigint * b)
 }
 
 _Bigint *
-_DEFUN (pow5mult,
-	(b, k), _Bigint * b _AND int k)
+pow5mult (_Bigint * b, int k)
 {
   _Bigint *b1, *p5, *p51;
   int i;
-  static _CONST int p05[3] = {5, 25, 125};
+  static const int p05[3] = {5, 25, 125};
 
   if ((i = k & 3) != 0)
     b = multadd (b, p05[i - 1], 0);
@@ -484,7 +480,7 @@ _DEFUN (pow5mult,
 }
 
 _Bigint *
-_DEFUN (lshift, ( b, k), _Bigint * b _AND int k)
+lshift (_Bigint * b, int k)
 {
   int i, k1, n, n1;
   _Bigint *b1;
@@ -544,7 +540,7 @@ _DEFUN (lshift, ( b, k), _Bigint * b _AND int k)
 }
 
 int
-_DEFUN (cmp, (a, b), _Bigint * a _AND _Bigint * b)
+cmp (_Bigint * a, _Bigint * b)
 {
   __ULong *xa, *xa0, *xb, *xb0;
   int i, j;
@@ -574,7 +570,7 @@ _DEFUN (cmp, (a, b), _Bigint * a _AND _Bigint * b)
 }
 
 _Bigint *
-_DEFUN (diff, (a, b), _Bigint * a _AND _Bigint * b)
+diff (_Bigint * a, _Bigint * b)
 {
   _Bigint *c;
   int i, wa, wb;
@@ -657,7 +653,7 @@ _DEFUN (diff, (a, b), _Bigint * a _AND _Bigint * b)
 }
 
 double
-_DEFUN (ulp, (_x), double _x)
+ulp (double _x)
 {
   union double_union x, a;
   register __Long L;
@@ -703,8 +699,7 @@ _DEFUN (ulp, (_x), double _x)
 }
 
 double
-_DEFUN (b2d, (a, e),
-	_Bigint * a _AND int *e)
+b2d (_Bigint * a, int *e)
 {
   __ULong *xa, *xa0, w, y, z;
   int k;
@@ -780,10 +775,8 @@ ret_d:
 }
 
 _Bigint *
-_DEFUN (d2b,
-	(_d, e, bits),
-	double _d _AND
-	int *e _AND
+d2b (double _d,
+	int *e,
 	int *bits)
 
 {
@@ -934,7 +927,7 @@ _DEFUN (d2b,
 #undef d1
 
 double
-_DEFUN (ratio, (a, b), _Bigint * a _AND _Bigint * b)
+ratio (_Bigint * a, _Bigint * b)
 
 {
   union double_union da, db;
@@ -974,7 +967,7 @@ _DEFUN (ratio, (a, b), _Bigint * a _AND _Bigint * b)
 }
 
 
-_CONST double
+const double
   tens[] =
 {
   1e0, 1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9,
@@ -984,23 +977,22 @@ _CONST double
 };
 
 #if !defined(_DOUBLE_IS_32BITS) && !defined(__v800)
-_CONST double bigtens[] =
+const double bigtens[] =
 {1e16, 1e32, 1e64, 1e128, 1e256};
 
-_CONST double tinytens[] =
+const double tinytens[] =
 {1e-16, 1e-32, 1e-64, 1e-128, 1e-256};
 #else
-_CONST double bigtens[] =
+const double bigtens[] =
 {1e16, 1e32};
 
-_CONST double tinytens[] =
+const double tinytens[] =
 {1e-16, 1e-32};
 #endif
 
 
 double
-_DEFUN (_mprec_log10, (dig),
-	int dig)
+_mprec_log10 (int dig)
 {
   double v = 1.0;
   if (dig < 24)
@@ -1014,9 +1006,8 @@ _DEFUN (_mprec_log10, (dig),
 }
 
 void
-_DEFUN (copybits, (c, n, b),
-	__ULong *c _AND
-	int n _AND
+copybits (__ULong *c,
+	int n,
 	_Bigint *b)
 {
 	__ULong *ce, *x, *xe;
@@ -1043,8 +1034,7 @@ _DEFUN (copybits, (c, n, b),
 }
 
 __ULong
-_DEFUN (any_on, (b, k),
-	_Bigint *b _AND
+any_on (_Bigint *b,
 	int k)
 {
 	int n, nwds;

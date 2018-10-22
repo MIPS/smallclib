@@ -92,8 +92,7 @@ QUICKREF
 static char buf[40];
 
 char *
-_DEFUN (strsignal, (signal),
-	int signal)
+strsignal (int signal)
 {
   char *buffer;
 

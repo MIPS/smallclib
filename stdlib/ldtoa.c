@@ -92,10 +92,10 @@ typedef struct
   unsigned short equot[NI];
 } LDPARMS;
 
-static void esub(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
-static void emul(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
-static void ediv(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
-static int ecmp(_CONST short unsigned int *a, _CONST short unsigned int *b);
+static void esub(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
+static void emul(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
+static void ediv(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp);
+static int ecmp(const short unsigned int *a, const short unsigned int *b);
 static int enormlz(short unsigned int *x);
 static int eshift(short unsigned int *x, int sc);
 static void eshup1(register short unsigned int *x);
@@ -105,7 +105,7 @@ static void eshdn1(register short unsigned int *x);
 static void eshdn8(register short unsigned int *x);
 static void eshdn6(register short unsigned int *x);
 static void eneg(short unsigned int *x);
-static void emov(register _CONST short unsigned int *a, register short unsigned int *b);
+static void emov(register const short unsigned int *a, register short unsigned int *b);
 static void eclear(register short unsigned int *x);
 static void einfin(register short unsigned int *x, register LDPARMS *ldp);
 static void efloor(short unsigned int *x, short unsigned int *y, LDPARMS *ldp);
@@ -132,22 +132,22 @@ static void e113toe(short unsigned int *pe, short unsigned int *y, LDPARMS *ldp)
 
 #if NE == 10
 /* 0.0 */
-static _CONST unsigned short ezero[NE] =
+static const unsigned short ezero[NE] =
  {0x0000, 0x0000, 0x0000, 0x0000,
   0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,};
 
 /* 1.0E0 */
-static _CONST unsigned short eone[NE] =
+static const unsigned short eone[NE] =
  {0x0000, 0x0000, 0x0000, 0x0000,
   0x0000, 0x0000, 0x0000, 0x0000, 0x8000, 0x3fff,};
 
 #else
 
 /* 0.0 */
-static _CONST unsigned short ezero[NE] = {
+static const unsigned short ezero[NE] = {
 0, 0000000,0000000,0000000,0000000,0000000,};
 /* 1.0E0 */
-static _CONST unsigned short eone[NE] = {
+static const unsigned short eone[NE] = {
 0, 0000000,0000000,0000000,0100000,0x3fff,};
 
 #endif
@@ -158,7 +158,7 @@ static _CONST unsigned short eone[NE] = {
  * messages is bound to the error codes defined
  * in mconf.h.
  */
-static _CONST char * _CONST ermsg[7] = {
+static const char * const ermsg[7] = {
 "unknown",      /* error code 0 */
 "domain",       /* error code 1 */
 "singularity",  /* et seq.      */
@@ -445,14 +445,14 @@ static void eiremain(short unsigned int *den, short unsigned int *num, LDPARMS *
 static int ecmpm(register short unsigned int *a, register short unsigned int *b);
 static int edivm(short unsigned int *den, short unsigned int *num, LDPARMS *ldp);
 static int emulm(short unsigned int *a, short unsigned int *b, LDPARMS *ldp);
-static int eisneg(_CONST short unsigned int *x);
-static int eisinf(_CONST short unsigned int *x);
-static void emovi(_CONST short unsigned int *a, short unsigned int *b);
+static int eisneg(const short unsigned int *x);
+static int eisinf(const short unsigned int *x);
+static void emovi(const short unsigned int *a, short unsigned int *b);
 static void emovo(short unsigned int *a, short unsigned int *b, LDPARMS *ldp);
 static void emovz(register short unsigned int *a, register short unsigned int *b);
 static void ecleaz(register short unsigned int *xi);
-static void eadd1(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, int subflg, LDPARMS *ldp);
-static int eisnan(_CONST short unsigned int *x);
+static void eadd1(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, int subflg, LDPARMS *ldp);
+static int eisnan(const short unsigned int *x);
 static int eiisnan(short unsigned int *x);
 
 #ifdef DEC
@@ -481,7 +481,7 @@ for( i=0; i<NE; i++ )
  * emov( a, b );
  */
 
-static void emov(register _CONST short unsigned int *a, register short unsigned int *b)
+static void emov(register const short unsigned int *a, register short unsigned int *b)
 {
 register int i;
 
@@ -512,7 +512,7 @@ x[NE-1] ^= 0x8000; /* Toggle the sign bit */
 /* Return 1 if external format number is negative,
  * else return zero.
  */
-static int eisneg(_CONST short unsigned int *x)
+static int eisneg(const short unsigned int *x)
 {
 
 #ifdef NANS
@@ -529,7 +529,7 @@ else
 /* Return 1 if external format number has maximum possible exponent,
  * else return zero.
  */
-static int eisinf(_CONST short unsigned int *x)
+static int eisinf(const short unsigned int *x)
 {
 
 if( (x[NE-1] & 0x7fff) == 0x7fff )
@@ -546,7 +546,7 @@ else
 
 /* Check if e-type number is not a number.
  */
-static int eisnan(_CONST short unsigned int *x)
+static int eisnan(const short unsigned int *x)
 {
 
 #ifdef NANS
@@ -614,9 +614,9 @@ if( ldp->rndprc < NBITS )
 /* Move in external format number,
  * converting it to internal format.
  */
-static void emovi(_CONST short unsigned int *a, short unsigned int *b)
+static void emovi(const short unsigned int *a, short unsigned int *b)
 {
-register _CONST unsigned short *p;
+register const unsigned short *p;
 register unsigned short *q;
 int i;
 
@@ -1403,7 +1403,7 @@ else
 ;	esub( a, b, c, ldp );	 c = b - a
 */
 
-static void esub(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
+static void esub(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
 {
 
 #ifdef NANS
@@ -1432,7 +1432,7 @@ eadd1( a, b, c, 1, ldp );
 
 
 
-static void eadd1(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, int subflg, LDPARMS *ldp)
+static void eadd1(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, int subflg, LDPARMS *ldp)
 {
 unsigned short ai[NI], bi[NI], ci[NI];
 int i, lost, j, k;
@@ -1541,7 +1541,7 @@ emovo( bi, c, ldp );
 ;       LDPARMS *ldp;
 ;	ediv( a, b, c, ldp );	c = b / a
 */
-static void ediv(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
+static void ediv(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
 {
 unsigned short ai[NI], bi[NI];
 int i;
@@ -1645,7 +1645,7 @@ emovo( bi, c, ldp );
 ;       LDPARMS *ldp
 ;	emul( a, b, c, ldp );	c = b * a
 */
-static void emul(_CONST short unsigned int *a, _CONST short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
+static void emul(const short unsigned int *a, const short unsigned int *b, short unsigned int *c, LDPARMS *ldp)
 {
 unsigned short ai[NI], bi[NI];
 int i, j;
@@ -2379,7 +2379,7 @@ i |= *p++ & (unsigned short )0x7f;	/* *p = xi[M] */
  *          -1 if a < b
  *          -2 if either a or b is a NaN.
  */
-static int ecmp(_CONST short unsigned int *a, _CONST short unsigned int *b)
+static int ecmp(const short unsigned int *a, const short unsigned int *b)
 {
 unsigned short ai[NI], bi[NI];
 register unsigned short *p, *q;
@@ -2589,7 +2589,7 @@ return( sc );
 #define MAXP 4096
 
 #if NE == 10
-static _CONST unsigned short etens[NTEN + 1][NE] =
+static const unsigned short etens[NTEN + 1][NE] =
 {
   {0x6576, 0x4a92, 0x804a, 0x153f,
    0xc94c, 0x979a, 0x8a20, 0x5202, 0xc460, 0x7525,},	/* 10**4096 */
@@ -2619,7 +2619,7 @@ static _CONST unsigned short etens[NTEN + 1][NE] =
    0x0000, 0x0000, 0x0000, 0x0000, 0xa000, 0x4002,},	/* 10**1 */
 };
 
-static _CONST unsigned short emtens[NTEN + 1][NE] =
+static const unsigned short emtens[NTEN + 1][NE] =
 {
   {0x2030, 0xcffc, 0xa1c3, 0x8123,
    0x2de3, 0x9fde, 0xd2ce, 0x04c8, 0xa6dd, 0x0ad8,},	/* 10**-4096 */
@@ -2649,7 +2649,7 @@ static _CONST unsigned short emtens[NTEN + 1][NE] =
    0xcccc, 0xcccc, 0xcccc, 0xcccc, 0xcccc, 0x3ffb,},	/* 10**-1 */
 };
 #else
-static _CONST unsigned short etens[NTEN+1][NE] = {
+static const unsigned short etens[NTEN+1][NE] = {
 {0xc94c,0x979a,0x8a20,0x5202,0xc460,0x7525,},/* 10**4096 */
 {0xa74d,0x5de4,0xc53d,0x3b5d,0x9e8b,0x5a92,},/* 10**2048 */
 {0x650d,0x0c17,0x8175,0x7586,0xc976,0x4d48,},
@@ -2665,7 +2665,7 @@ static _CONST unsigned short etens[NTEN+1][NE] = {
 {0x0000,0x0000,0x0000,0x0000,0xa000,0x4002,}, /* 10**1 */
 };
 
-static _CONST unsigned short emtens[NTEN+1][NE] = {
+static const unsigned short emtens[NTEN+1][NE] = {
 {0x2de4,0x9fde,0xd2ce,0x04c8,0xa6dd,0x0ad8,}, /* 10**-4096 */
 {0x4925,0x2de4,0x3436,0x534f,0xceae,0x256b,}, /* 10**-2048 */
 {0x87a6,0xc0bd,0xda57,0x82a5,0xa2a6,0x32b5,},
@@ -2934,7 +2934,7 @@ static void etoasc(short unsigned int *x, char *string, int ndigits, int outform
 {
 long digit;
 unsigned short y[NI], t[NI], u[NI], w[NI];
-_CONST unsigned short *p, *r, *ten;
+const unsigned short *p, *r, *ten;
 unsigned short sign;
 int i, j, k, expon, rndsav, ndigs;
 char *s, *ss;
@@ -3288,7 +3288,7 @@ int esign, decflg, sgnflg, nexp, exp, prec, lost;
 int k, trail, c, rndsav;
 long lexp;
 unsigned short nsign;
-_CONST unsigned short *p;
+const unsigned short *p;
 char *sp, *s, *lstr;
 int lenldstr;
 int mflag = 0;
@@ -3615,7 +3615,7 @@ return lenldstr;
  *
  * efloor( x, y, ldp );
  */
-static _CONST unsigned short bmask[] = {
+static const unsigned short bmask[] = {
 0xffff,
 0xfffe,
 0xfffc,
@@ -3714,23 +3714,23 @@ emdnorm( num, 0, 0, ln, 0, ldp );
 /* NaN bit patterns
  */
 #ifdef MIEEE
-static _CONST unsigned short nan113[8] = {
+static const unsigned short nan113[8] = {
   0x7fff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff};
-static _CONST unsigned short nan64[6] = {0x7fff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff};
-static _CONST unsigned short nan53[4] = {0x7fff, 0xffff, 0xffff, 0xffff};
-static _CONST unsigned short nan24[2] = {0x7fff, 0xffff};
+static const unsigned short nan64[6] = {0x7fff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff};
+static const unsigned short nan53[4] = {0x7fff, 0xffff, 0xffff, 0xffff};
+static const unsigned short nan24[2] = {0x7fff, 0xffff};
 #else /* !MIEEE */
-static _CONST unsigned short nan113[8] = {0, 0, 0, 0, 0, 0, 0x8000, 0x7fff};
-static _CONST unsigned short nan64[6] = {0, 0, 0, 0, 0xc000, 0x7fff};
-static _CONST unsigned short nan53[4] = {0, 0, 0, 0x7ff8};
-static _CONST unsigned short nan24[2] = {0, 0x7fc0};
+static const unsigned short nan113[8] = {0, 0, 0, 0, 0, 0, 0x8000, 0x7fff};
+static const unsigned short nan64[6] = {0, 0, 0, 0, 0xc000, 0x7fff};
+static const unsigned short nan53[4] = {0, 0, 0, 0x7ff8};
+static const unsigned short nan24[2] = {0, 0x7fc0};
 #endif /* !MIEEE */
 
 
 static void enan (short unsigned int *nan, int size)
 {
 int i, n;
-_CONST unsigned short *p;
+const unsigned short *p;
 
 switch( size )
 	{

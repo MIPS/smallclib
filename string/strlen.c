@@ -87,10 +87,9 @@ QUICKREF
 #endif
 
 size_t
-_DEFUN (strlen, (str),
-	_CONST char *str)
+strlen (const char *str)
 {
-  _CONST char *start = str;
+  const char *start = str;
 
 #if !defined(__PREFER_SIZE_OVER_SPEED__)
   unsigned long *aligned_addr;

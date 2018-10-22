@@ -38,8 +38,7 @@
 #include "low/_math.h"
 
 int
-_DEFUN (__isinff, (x),
-	float x)
+__isinff (float x)
 {
 	__int32_t ix;
 	GET_FLOAT_WORD(ix,x);
@@ -50,8 +49,7 @@ _DEFUN (__isinff, (x),
 #ifdef _DOUBLE_IS_32BITS
 
 int
-_DEFUN (__isinfd, (x),
-	double x)
+__isinfd (double x)
 {
 	return __isinff((float) x);
 }

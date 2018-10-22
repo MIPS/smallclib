@@ -113,8 +113,8 @@ PORTABILITY
 #define inline
 #endif
 
-static inline char	*med3 _PARAMS((char *, char *, char *, int (*)()));
-static inline void	 swapfunc _PARAMS((char *, char *, int, int));
+static inline char	*med3 (char *, char *, char *, int (*)())
+static inline void	 swapfunc (char *, char *, int, int);
 
 #define min(a, b)	(a) < (b) ? a : b
 
@@ -136,10 +136,8 @@ static inline void	 swapfunc _PARAMS((char *, char *, int, int));
 	es % sizeof(long) ? 2 : es == sizeof(long)? 0 : 1;
 
 static inline void
-_DEFUN(swapfunc, (a, b, n, swaptype),
-	char *a _AND
-	char *b _AND
-	int n _AND
+swapfunc (char *b,
+	int n,
 	int swaptype)
 {
 	if(swaptype <= 1) 
@@ -159,10 +157,9 @@ _DEFUN(swapfunc, (a, b, n, swaptype),
 #define vecswap(a, b, n) 	if ((n) > 0) swapfunc(a, b, n, swaptype)
 
 static inline char *
-_DEFUN(med3, (a, b, c, cmp),
-	char *a _AND
-	char *b _AND
-	char *c _AND
+med3 (char *a,
+	char *b,
+	char *c,
 	int (*cmp)())
 {
 	return cmp(a, b) < 0 ?
@@ -171,10 +168,9 @@ _DEFUN(med3, (a, b, c, cmp),
 }
 
 void
-_DEFUN(qsort, (a, n, es, cmp),
-	void *a _AND
-	size_t n _AND
-	size_t es _AND
+qsort (void *a,
+	size_t n,
+	size_t es,
 	int (*cmp)())
 {
 	char *pa, *pb, *pc, *pd, *pl, *pm, *pn;

@@ -105,19 +105,18 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 #include <low/_stdlib.h>
 #include <low/mprec.h>
 
-char * _EXFUN (dtoa, (double _d, int mode, int ndigits, int *decpt, int *sign,
-		      char **rve));
+char * dtoa (double _d, int mode, int ndigits, int *decpt, int *sign,
+		      char **rve);
 
 static int _cvtlen=0;
 static char *_cvtbuf=NULL;
 
 static void
-_DEFUN (print_f, (buf, invalue, ndigit, type, dot, mode),
-	char *buf _AND
-	double invalue _AND
-	int ndigit _AND
-	char type _AND
-	int dot _AND
+print_f (char *buf,
+	double invalue,
+	int ndigit,
+	char type,
+	int dot,
 	int mode)
 {
   int decpt;
@@ -179,11 +178,10 @@ _DEFUN (print_f, (buf, invalue, ndigit, type, dot, mode),
    WIDTH is the number of digits of precision after the decimal point.  */
 
 static void
-_DEFUN (print_e, (buf, invalue, width, type, dot),
-	char *buf _AND
-	double invalue _AND
-	int width _AND
-	char type _AND
+print_e (char *buf,
+	double invalue,
+	int width,
+	char type,
 	int dot)
 {
   int sign;
@@ -260,11 +258,10 @@ _DEFUN (print_e, (buf, invalue, width, type, dot),
    support ecvt and fcvt, which aren't ANSI anyway.  */
 
 char *
-_DEFUN (fcvtbuf, (invalue, ndigit, decpt, sign, fcvt_buf),
-	double invalue _AND
-	int ndigit _AND
-	int *decpt _AND
-	int *sign _AND
+fcvtbuf (double invalue,
+	int ndigit,
+	int *decpt,
+	int *sign,
 	char *fcvt_buf)
 {
   char *save;
@@ -316,11 +313,10 @@ _DEFUN (fcvtbuf, (invalue, ndigit, decpt, sign, fcvt_buf),
 }
 
 char *
-_DEFUN (ecvtbuf, (invalue, ndigit, decpt, sign, fcvt_buf),
-	double invalue _AND
-	int ndigit _AND
-	int *decpt _AND
-	int *sign _AND
+ecvtbuf (double invalue,
+	int ndigit,
+	int *decpt,
+	int *sign,
 	char *fcvt_buf)
 {
   char *save;
@@ -364,11 +360,10 @@ _DEFUN (ecvtbuf, (invalue, ndigit, decpt, sign, fcvt_buf),
 
 
 char *
-_DEFUN (_gcvt, (invalue, ndigit, buf, type, dot),
-	double invalue _AND
-	int ndigit _AND
-	char *buf _AND
-	char type _AND
+_gcvt (double invalue,
+	int ndigit,
+	char *buf,
+	char type,
 	int dot)
 {
   char *save = buf;
@@ -471,12 +466,11 @@ _DEFUN (_gcvt, (invalue, ndigit, buf, type, dot),
 }
 
 char *
-_DEFUN (_dcvt, (buffer, invalue, precision, width, type, dot),
-	char *buffer _AND
-	double invalue _AND
-	int precision _AND
-	int width _AND
-	char type _AND
+_dcvt (char *buffer,
+	double invalue,
+	int precision,
+	int width,
+	char type,
 	int dot)
 {
   switch (type)
