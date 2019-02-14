@@ -279,7 +279,7 @@ unaligned_words (struct ulw *a, const reg_t * b,
       if (words_by_block > PREF_AHEAD)
 	for (i = 0; i < CACHE_LINES_PER_BLOCK; i++)
 	  PREFETCH (b + (BLOCK_SIZE / CACHE_LINES_PER_BLOCK
-			 * (PREF_AHEAD + i));
+			 * (PREF_AHEAD + i)));
 
       reg_t y0 = b[0], y1 = b[1], y2 = b[2], y3 = b[3];
       reg_t y4 = b[4], y5 = b[5], y6 = b[6], y7 = b[7];
