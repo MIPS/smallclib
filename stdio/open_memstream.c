@@ -226,7 +226,7 @@ static FILE * internal_open_memstream (char **buf, size_t *size, int wide)
   if (!*buf)
     {
       fp->_flags = 0; /* release */
-      free (c);
+      free (fc);
       return NULL;
     }
   if (wide == 1)
